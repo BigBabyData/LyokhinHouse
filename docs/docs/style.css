@@ -1,0 +1,462 @@
+.mobile-menu{
+    display: none;
+}
+p, h1, h2, h3, a {
+    font-family: 'JetBrains Mono', monospace; 
+}
+
+body{
+    margin: 0;
+    width: auto;
+    min-width: 400px;
+    background-color: #FFFFFF;
+}
+
+a{
+    text-decoration: none;
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 42.24px;
+    text-align: left;
+}
+
+li{
+    list-style: none;
+    padding: 0;
+}
+button{
+    outline: none; 
+    border: none; 
+    margin: 0;
+    padding: 0;
+    background-color: rgba(93, 93, 93, 0);
+}
+
+header{
+    height: 86px;
+    display: flex;
+    padding-left: 0;
+    padding-right: 19px;
+}
+
+.menu-but{
+    display: none;
+}
+
+.bg-image {
+    position: relative;
+    background-image: url('img/image1.png'); 
+    background-size: cover;
+    background-position: center;
+    height: 585px; 
+}
+
+.bg-image::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.4); 
+    z-index: 1; 
+}
+
+.bg-image h1 {
+    position: relative; 
+    color: white; 
+    z-index: 2; 
+}
+
+.bg-image .main-header{
+    background-color: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(50px);
+    position: relative; 
+    z-index: 2
+}
+
+header a{
+    color: #5D5D5D;
+    margin-top: 18px;
+    padding: 0;
+
+}
+
+
+header ul{
+    display: flex;
+    margin: 0;
+    padding: 0;
+    margin-top: 22px;
+}
+
+.mini-nav{
+    margin-left: auto;
+}
+
+.mini-nav-item{
+    margin:0;
+    padding: 0;
+    margin-right: 27px;
+}
+
+.call{
+    margin: 0;
+    padding: 0;
+    margin-left: 5px;
+    margin-top: 9px;
+    
+}
+.name{
+    margin-right: auto;
+    margin-top: 18px;
+    padding: 0;
+    margin-left: 88px;
+}
+.phone-circle{
+    width: 50px;
+    height: 50px;
+    background-color:#BAD731 ;
+    border-radius: 50px;
+    padding: 0;
+    margin:0;
+    margin-top: 19px;
+    
+    
+}
+
+/* БЛОК ГЕРОЙ */
+
+
+.hero{
+    padding-left: 122px;
+}
+h1{
+    font-size: 64px;
+    font-weight: 400;
+    line-height: 84.48px;
+    text-align: left;
+}
+
+.hero a{
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 31.68px;
+    text-align: left;
+}
+
+.hero ul{
+    display: flex;
+}
+
+.hero-li{
+    display: inline-block; 
+    padding: 17px; 
+    background-color: #BAD731; 
+    border-radius: 50px; 
+    margin: 0;
+    margin-right: 20px ;
+    position: relative; 
+    z-index: 2
+}
+
+.hero-button{
+    color: #000000;
+}
+
+/* БЛОК О НАС */
+
+.about{
+    display: flex;
+    padding-right: 82px;
+    margin-bottom: 79px;
+}
+
+.about-image{
+    margin-top: 150px;
+    margin-left: 136px;
+    margin-right: 81px;
+}
+
+.text-block h2{
+    font-size: 64px;
+    font-weight: 400;
+    line-height: 84.48px;
+    text-align: center;
+    padding-top: 0;
+    margin-bottom: 0;
+}
+
+.green{
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 42.24px;
+    text-align: center;
+    margin:0;
+    padding: 0;
+    color: #BAD731;
+    margin-bottom: 24px;
+}
+
+.about-p{
+    font-size: 28px;
+    font-weight: 400;
+    line-height: 36.96px;
+    text-align: left;
+}
+
+/* ВЫБРАТЬ ПИТОМЦА */
+
+.adopt{
+    background-color: #E8FF7D;
+    padding: 0;
+}
+
+.adopt h2{
+    padding-top: 29px;
+    text-align: center;
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 42.24px;
+    margin-bottom: 23px;
+}
+
+.cards{
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 100px;
+    padding: 0;
+}
+.card{
+    padding: 0;
+    margin-right: 50px;
+    margin-bottom: 36px;
+}
+
+.card-content{
+    margin: 0;
+    background-color: #FFFFFF;
+    padding-left: 11px;
+    padding-top: 8px;
+    padding-right: 11px;
+    border-radius: 19px;
+    text-align: center;
+    width: 362px;
+}
+
+h3{
+    margin: 0;
+    padding: 0;
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 42.24px;
+}
+
+.age{
+    margin: 0;
+    padding: 0;
+    margin-bottom: 8px;
+    font-family: Inter;
+    font-size: 24px;
+    font-weight: 300;
+    line-height: 29.05px;
+    color: #A9A9A9;
+}
+
+.description{
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 26.4px;
+    color: #000000;
+    overflow-wrap: break-word;
+    height: 88px;
+    margin-bottom:13px ;
+}
+
+/* КОНТАКТЫ */
+
+.contacts{
+    text-align: center;
+    padding-bottom: 54px;
+}
+
+.contacts h2{
+    font-size: 64px;
+    font-weight: 400;
+    line-height: 84.48px;
+    margin: 0;
+    padding: 0;
+    margin-bottom: 23px;
+    margin-top: 54px;
+}
+
+.contacts p{
+    font-size: 40px;
+    font-weight: 400;
+    line-height: 52.8px;
+    color: #A8A8A8;
+    padding: 0;
+    margin: 0;
+    margin-bottom: 58px;
+}
+
+.tel{
+    color: #BAD731;
+    margin-bottom: 54px;
+    font-size: 64px;
+    font-weight: 400;
+    line-height: 84.48px;
+}
+
+/* АДАПТАЦИЯ ПОД МОБИЛКИ */
+
+@media(max-width: 1000px){
+
+    /* ВСПЛЫВАЮЩЕЕ МЕНЮ */
+
+    .menu-but {
+        padding:0;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .close-menu{
+        font-family: Inter;
+        font-size: 48px;
+        font-weight: 400;
+        line-height: 58.09px;
+        color:rgba(93, 93, 93, 1);
+        margin-bottom: 48px;
+        text-align: end;
+    }
+    .mobile-menu {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        z-index: 10;
+        top: 0;
+        right: -70%; /* Скрыто за пределами экрана */
+        width: 66%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.5);
+        padding: 20px;
+        transition: right 0.2s ease; /* Плавный переход */
+        backdrop-filter: blur(15px)
+    }
+
+    .menu-button{
+        text-align: center;
+        margin-bottom: 42px;
+        color:rgba(93, 93, 93, 1);
+    }
+
+    .mobile-menu.open {
+        right: 0; /* Показываем панель */
+    }
+
+     /* ОСНОВНАЯ СТРАНИЦА */
+
+    body{
+        width:100%;
+    }
+    .bg-image{
+        height: 603px;
+    }
+    .mini-nav{
+        display: none;
+    }
+    .call, .phone-circle{
+        display: none;
+    }
+    .menu-but{
+        display: block;
+        margin-right: 21px;
+    }
+    .hero{
+        padding-left: 0;
+    }
+    .hero h1{
+    font-size: 45px;
+    font-weight: 400;
+    line-height: 59.4px;
+    margin-top: 92px;
+    margin-left: 59px;
+    text-align: left;
+    }
+    .hero-li{
+        margin-top: 45px;
+    }
+
+    /* О НАС */
+
+    .about-image{
+        display: none;
+    }
+
+    .about h2{
+        font-size: 64px;
+        font-weight: 400;
+        line-height: 84.48px;
+    }
+
+    .text-block{
+        margin-left: 90px;
+    }
+
+    .about-p{
+        text-align: center;
+        font-size: 28px;
+        font-weight: 400;
+        line-height: 36.96px;
+    }
+
+    /* ВЫБРАТЬ ПИТОМЦА */
+
+    .cards{
+        justify-content: center;
+        margin-left: 29px;
+    }
+    .card{
+        margin-right: 29px;
+        margin-bottom: 30px;
+    }
+    .mobile-card{
+        display: none;
+    }
+
+    h3{
+        font-size: 32px;
+        font-weight: 400;
+        line-height: 42.24px;
+    }
+    .age{
+        font-size: 24px;
+        font-weight: 400;
+        line-height: 29.05px;
+    }
+    .description{
+        font-size: 20px;
+        font-weight: 400;
+        line-height: 26.4px;
+    }
+
+    /* КОНТАКТЫ */
+
+    .contacts h2{
+        font-size: 40px;
+        font-weight: 400;
+        line-height: 52.8px;
+    }
+    .gray{
+        font-size: 32px;
+        font-weight: 400;
+        line-height: 42.24px;
+    }
+    .tel{
+        font-size: 48px;
+        font-weight: 400;
+        line-height: 63.36px;
+    }
+}
