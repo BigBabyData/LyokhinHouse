@@ -1,5 +1,15 @@
+.mobile-menu{
+    display: none;
+}
 p, h1, h2, h3, a {
     font-family: 'JetBrains Mono', monospace; 
+}
+
+body{
+    margin: 0;
+    width: auto;
+    min-width: 400px;
+    background-color: #FFFFFF;
 }
 
 a{
@@ -17,11 +27,22 @@ li{
 button{
     outline: none; 
     border: none; 
+    margin: 0;
+    padding: 0;
+    background-color: rgba(93, 93, 93, 0);
 }
 
 header{
     height: 86px;
+    display: flex;
+    padding-left: 0;
+    padding-right: 19px;
 }
+
+.menu-but{
+    display: none;
+}
+
 .bg-image {
     position: relative;
     background-image: url('img/image1.png'); 
@@ -61,10 +82,6 @@ header a{
 
 }
 
-header{
-    display: flex;
-    padding-left: 0;
-}
 
 header ul{
     display: flex;
@@ -72,6 +89,11 @@ header ul{
     padding: 0;
     margin-top: 22px;
 }
+
+.mini-nav{
+    margin-left: auto;
+}
+
 .mini-nav-item{
     margin:0;
     padding: 0;
@@ -81,11 +103,12 @@ header ul{
 .call{
     margin: 0;
     padding: 0;
-    margin-left: 9px;
+    margin-left: 5px;
     margin-top: 9px;
+    
 }
 .name{
-    margin-right: 400px;
+    margin-right: auto;
     margin-top: 18px;
     padding: 0;
     margin-left: 88px;
@@ -98,7 +121,8 @@ header ul{
     padding: 0;
     margin:0;
     margin-top: 19px;
-    margin-right: 31px;
+    
+    
 }
 
 /* БЛОК ГЕРОЙ */
@@ -205,7 +229,7 @@ h1{
 }
 .card{
     padding: 0;
-    margin-right: 59px;
+    margin-right: 50px;
     margin-bottom: 36px;
 }
 
@@ -286,28 +310,153 @@ h3{
     line-height: 84.48px;
 }
 
-/* КАРТА */ 
+/* АДАПТАЦИЯ ПОД МОБИЛКИ */
 
-@media(max-width: 1440px){
-    body{
-        width: 1440px;
-    }
-}
+@media(max-width: 1000px){
 
-@media(max-width: 700px){
+    /* ВСПЛЫВАЮЩЕЕ МЕНЮ */
+
+    .menu-but {
+        padding:0;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .close-menu{
+        font-family: Inter;
+        font-size: 48px;
+        font-weight: 400;
+        line-height: 58.09px;
+        color:rgba(93, 93, 93, 1);
+        margin-bottom: 48px;
+        text-align: end;
+    }
+    .mobile-menu {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        z-index: 10;
+        top: 0;
+        right: -70%; /* Скрыто за пределами экрана */
+        width: 66%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.5);
+        padding: 20px;
+        transition: right 0.2s ease; /* Плавный переход */
+        backdrop-filter: blur(15px)
+    }
+
+    .menu-button{
+        text-align: center;
+        margin-bottom: 42px;
+        color:rgba(93, 93, 93, 1);
+    }
+
+    .mobile-menu.open {
+        right: 0; /* Показываем панель */
+    }
+
+     /* ОСНОВНАЯ СТРАНИЦА */
+
     body{
-        width: 100%;
+        width:100%;
     }
-    .name{
-        margin-left: 37px;
+    .bg-image{
+        height: 603px;
     }
-    .mini-nav-item{
+    .mini-nav{
         display: none;
     }
     .call, .phone-circle{
         display: none;
     }
-    .bg-image{
-        height: 603px ;
+    .menu-but{
+        display: block;
+        margin-right: 21px;
+    }
+    .hero{
+        padding-left: 0;
+    }
+    .hero h1{
+    font-size: 45px;
+    font-weight: 400;
+    line-height: 59.4px;
+    margin-top: 92px;
+    margin-left: 59px;
+    text-align: left;
+    }
+    .hero-li{
+        margin-top: 45px;
+    }
+
+    /* О НАС */
+
+    .about-image{
+        display: none;
+    }
+
+    .about h2{
+        font-size: 64px;
+        font-weight: 400;
+        line-height: 84.48px;
+    }
+
+    .text-block{
+        margin-left: 90px;
+    }
+
+    .about-p{
+        text-align: center;
+        font-size: 28px;
+        font-weight: 400;
+        line-height: 36.96px;
+    }
+
+    /* ВЫБРАТЬ ПИТОМЦА */
+
+    .cards{
+        justify-content: center;
+        margin-left: 29px;
+    }
+    .card{
+        margin-right: 29px;
+        margin-bottom: 30px;
+    }
+    .mobile-card{
+        display: none;
+    }
+
+    h3{
+        font-size: 32px;
+        font-weight: 400;
+        line-height: 42.24px;
+    }
+    .age{
+        font-size: 24px;
+        font-weight: 400;
+        line-height: 29.05px;
+    }
+    .description{
+        font-size: 20px;
+        font-weight: 400;
+        line-height: 26.4px;
+    }
+
+    /* КОНТАКТЫ */
+
+    .contacts h2{
+        font-size: 40px;
+        font-weight: 400;
+        line-height: 52.8px;
+    }
+    .gray{
+        font-size: 32px;
+        font-weight: 400;
+        line-height: 42.24px;
+    }
+    .tel{
+        font-size: 48px;
+        font-weight: 400;
+        line-height: 63.36px;
     }
 }

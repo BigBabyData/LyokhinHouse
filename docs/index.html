@@ -12,6 +12,12 @@
         <title>Главная</title>
     </head>
     <body>
+        <div class="mobile-menu">
+            <button class="close-menu">X</button>
+            <a href="#" class="menu-button">Отдать в приют</a>
+            <a href="#" class="menu-button">Взять из приюта</a>
+            <a href="#" class="menu-button">Связаться с нами</a>
+        </div>
         <div class="bg-image">
             <header class = main-header>
                 <a href="#" class="name">Лехин дом</a>
@@ -25,9 +31,12 @@
                 </ul>
                 <div class="phone-circle">
                     <a href="#" class="call">
-                        <img src="img/Icon_call.svg" width="31" height="23">
+                        <img src="img/Icon_call.svg" width="41" height="41">
                     </a>
                 </div>
+                <button class="menu-but">
+                    <img src="img/Icon_menu.svg" width="46" height="46">
+                </button>
             </header>
             <main>
                 <section class="hero">
@@ -86,7 +95,7 @@
                             <p class="description">Красив,молод и очень хочет домой.</p>
                         </div>
                     </li>
-                    <li class="card">
+                    <li class="card mobile-card">
                         <div class="card-content">
                             <img src="img/image3.jpg" class="card-image" width="339" height="262">
                             <h3>Лёха</h3>
@@ -94,7 +103,7 @@
                             <p class="description">Красив,молод и очень хочет домой.</p>
                         </div>
                     </li>
-                    <li class="card">
+                    <li class="card mobile-card">
                         <div class="card-content">
                             <img src="img/image3.jpg" class="card-image" width="339" height="262">
                             <h3>Лёха</h3>
@@ -111,8 +120,12 @@
             </section>
         </main>
         <footer>
-            <!-- <img src="/img/map.png" class="map" width="1440" height="auto"> -->
-            <script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3Ad60fb79b23e38e7482791642693123237d748719a4c8d13172e0c7416942d108&amp;width=100%&amp;height=400&amp;lang=ru_RU&amp;scroll=true"></script>
-        </footer>       
+            <script 
+                type="text/javascript" 
+                charset="utf-8" 
+                async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3A4d57237674ab279586fbca2d14f949fea323b76c3590e642af955cc8a32bb4bb&amp;width=100%&amp;height=400&amp;lang=ru_RU&amp;scroll=true">
+            </script>
+        </footer>    
     </body>
+    <script src="script.js"></script>
 </html>
