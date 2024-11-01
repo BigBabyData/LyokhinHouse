@@ -43,15 +43,21 @@ header{
     display: none;
 }
 
-.bg-image {
+.bg-image{
     position: relative;
     background-image: url('img/image1.png'); 
     background-size: cover;
     background-position: center;
     height: 585px; 
 }
-
-.bg-image::before {
+.giveout {
+    position: relative;
+    background-image: url('img/image1.png'); 
+    background-size: cover;
+    background-position: center;
+    height: 1400px; 
+}
+.bg-image::before, .giveout::before {
     content: '';
     position: absolute;
     top: 0;
@@ -68,7 +74,15 @@ header{
     z-index: 2; 
 }
 
-.bg-image .main-header{
+.giveout h1{
+    font-size: 64px;
+    font-weight: 400;
+    line-height: 84.48px;
+    text-align: center;
+    margin-bottom: 76px;
+}
+
+.bg-image .main-header, .giveout .main-header{
     background-color: rgba(255, 255, 255, 0.5);
     backdrop-filter: blur(50px);
     position: relative; 
@@ -79,7 +93,6 @@ header a{
     color: #5D5D5D;
     margin-top: 18px;
     padding: 0;
-
 }
 
 
@@ -104,8 +117,7 @@ header ul{
     margin: 0;
     padding: 0;
     margin-left: 5px;
-    margin-top: 9px;
-    
+    margin-top: 9px;   
 }
 .name{
     margin-right: auto;
@@ -121,8 +133,6 @@ header ul{
     padding: 0;
     margin:0;
     margin-top: 19px;
-    
-    
 }
 
 /* БЛОК ГЕРОЙ */
@@ -309,6 +319,133 @@ h3{
     font-weight: 400;
     line-height: 84.48px;
 }
+/* СТРАНИЦА АНКЕТЫ */
+
+.ancet{
+    background-color: rgba(255, 237, 237, 0.5);
+    margin: 0 auto;
+    width: 860px;
+    height: 1050px;
+    border-radius:20px ;
+    border: 1px #FFFFFF;
+    position: relative;
+    z-index: 5;
+}
+
+input[type="text"],
+input[type="tel"],
+select {
+    width: 761px;
+    height:72px ;
+    padding: 4px; 
+    border: 1px solid #ccc; 
+    background-color: rgba(217, 217, 217, 0.7);
+    z-index: 6;
+    border-radius: 10px; 
+    box-sizing: border-box; /* Учет внутренних отступов в ширине */
+    margin-left: 42px;
+    margin-top: 40px;
+    font-family: JetBrains Mono;
+    font-size: 48px;
+    font-weight: 400;
+    line-height: 63.36px;
+    color: rgba(255, 255, 255);
+    
+}
+textarea#source {
+    width: 761px;
+    height:300px ;
+    padding: 4px; 
+    border: 1px solid #ccc; 
+    background-color: rgba(217, 217, 217, 0.7);
+    z-index: 6;
+    border-radius: 10px; 
+    box-sizing: border-box; /* Учет внутренних отступов в ширине */
+    margin-left: 42px;
+    margin-top: 40px;
+    font-family: JetBrains Mono;
+    font-size: 48px;
+    font-weight: 400;
+    line-height: 63.36px;
+    color: rgba(255, 255, 255);
+    overflow: hidden; /* Скрыть полосу прокрутки */
+    resize: none; /* Запретить изменение размера */
+    white-space: normal; /* Перенос текста */
+}
+
+input[type="text"]::placeholder,
+input[type="tel"]::placeholder,
+select::placeholder {
+    font-family: JetBrains Mono;
+    font-size: 48px;
+    font-weight: 400;
+    line-height: 63.36px;
+    color: rgba(255, 255, 255, 0.5);
+
+}
+
+textarea::placeholder{
+    font-family: JetBrains Mono;
+    font-size: 48px;
+    font-weight: 400;
+    line-height: 63.36px;
+    color: rgba(255, 255, 255, 0.5);    
+}
+
+input[type="text"]:focus,
+input[type="tel"]:focus,
+select:focus {
+    border-color: #66afe9; /* Цвет границы при фокусе */
+    outline: none; /* Убираем обводку при фокусе */
+}
+
+textarea:focus{
+    border-color: #66afe9; 
+    outline: none; 
+}
+
+.ancet-info-block p{
+    font-size: 48px;
+    font-weight: 400;
+    line-height: 63.36px;
+    text-align: left;
+    color:#FFFFFF;
+    z-index: 10;
+    margin: 0;
+    margin-top: 40px;
+}
+
+select{
+    width: 270px;
+}
+
+input[id="source"]{
+    height: 344px;
+}
+input[id="gender"],
+input[id="name"]{
+    width: 360px;
+}
+.additions-inputs{
+    display: flex;
+}
+.ancet-info-block{
+    display: flex;
+    justify-content: center;
+}
+
+.ancet-send button{
+    width: 350px;
+    border: 3px solid #BAD731;
+    border-radius: 20px;
+    color: #BAD731;
+    font-size: 48px;
+    font-weight: 400;
+    line-height: 63.36px;
+    margin-top: 40px;
+    margin-left: 29%;
+    z-index: 5;
+}
 
 /* АДАПТАЦИЯ ПОД МОБИЛКИ */
 
@@ -364,6 +501,10 @@ h3{
     .bg-image{
         height: 603px;
     }
+    .giveout{
+        height: 1400px;
+    }
+    
     .mini-nav{
         display: none;
     }
@@ -459,4 +600,7 @@ h3{
         font-weight: 400;
         line-height: 63.36px;
     }
+
+    /* ОТДАТЬ В ПРИЮТ */
+
 }
