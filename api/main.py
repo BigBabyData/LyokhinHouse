@@ -1,11 +1,10 @@
-from fastapi import FastAPI
-from api.routers import pets, intake
-from api.database import engine, Base
+from flask import Flask
 
-# Создаем все таблицы
-Base.metadata.create_all(bind=engine)
+app = Flask(__name__)
 
-app = FastAPI()
+@app.route('/')
+def index():
+    return "Test"
 
-app.include_router(pets.router)
-app.include_router(intake.router)
+if __name__ == '__main__':
+    app.run(debug=True)
