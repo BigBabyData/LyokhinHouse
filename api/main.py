@@ -1,9 +1,6 @@
 from flask import Flask
 from config import Config
 from flask_sqlalchemy import SQLAlchemy
-import os
-
-print(f"DATABASE_URL: {os.environ.get('DATABASE_URL')}")
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -26,7 +23,7 @@ def index():
 @app.route('/get-cats')
 def get_cats():
     cats = CatsInShelter.query.all()
-    return {'cats_in_shelter': [cat.cat_name for cat in cats]}
+    return {'cats_in_shelter': [(cat.cat_name, cat.id) for cat in cats]}
 
 if __name__ == '__main__':
     # app.run()
