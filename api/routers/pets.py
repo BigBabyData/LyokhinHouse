@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
-from app.database import SessionLocal
-from app.models import Pet
+from api.database import SessionLocal
+from api.models import Pet
 
 router = APIRouter()
 
@@ -16,3 +16,5 @@ def get_db():
 def read_pets(db: Session = Depends(get_db)):
     pets = db.query(Pet).all()
     return pets
+
+

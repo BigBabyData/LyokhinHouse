@@ -1,6 +1,6 @@
 from fastapi import FastAPI
-from app.routers import pets, intake
-from app.database import engine, Base
+from api.routers import pets, intake
+from api.database import engine, Base
 
 # Создаем все таблицы
 Base.metadata.create_all(bind=engine)
