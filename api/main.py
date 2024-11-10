@@ -3,11 +3,11 @@ from config import Config
 from flask_sqlalchemy import SQLAlchemy
 import os
 
+print(f"DATABASE_URL: {os.environ.get('DATABASE_URL')}")
+
 app = Flask(__name__)
 app.config.from_object(Config)
 db = SQLAlchemy(app)
-
-print(f"DATABASE_URL: {os.environ.get('DATABASE_URL')}")
 
 class CatsInShelter(db.Model):
     __tablename__ = "cats_in_shelter"
