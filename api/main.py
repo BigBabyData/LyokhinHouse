@@ -1,9 +1,9 @@
 from flask import Flask
-import config as Config
+from config import Config
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
-app.config.from_pyfile(Config)
+app.config.from_object(Config)
 db = SQLAlchemy(app)
 
 class CatsInShelter(db.Model):
