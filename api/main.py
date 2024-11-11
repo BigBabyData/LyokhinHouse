@@ -16,14 +16,30 @@ class CatsInShelter(db.Model):
     time_at_shelter = db.Column(db.Integer, nullable=True)
     arrival_date = db.Column(db.Date, nullable=True)
 
+class NewCats(db.Model):
+    __tablename__ = "new_cats"
+    id = db.Column(db.Integer, primary_key=True)
+    owner_name = db.Column(db.String, nullable=True)
+    phone_number = db.Column(db.String, nullable=True)
+    cat_type = db.Column(db.String, nullable=True)
+    where_found = db.Column(db.String, nullable=True)
+    reason_to_give_to_shelter = db.Column(db.String, nullable=True)
+    breed = db.Column(db.String, nullable=True)
+    gender = db.Column(db.String, nullable=True)
+    cat_name = db.Column(db.String, nullable=True)
+
 @app.route('/')
 def index():
     return "LyokhinHouse API is now running!"
 
-@app.route('/get-cats')
+@app.route("/get-cats-in-shelter")
 def get_cats():
     cats = CatsInShelter.query.all()
     return {'cats_in_shelter': [(cat.cat_name, cat.id) for cat in cats]}
+
+@app.route("/get-new-cats")
+def get_new_cats():
+    return "test"
 
 if __name__ == '__main__':
     # app.run()
