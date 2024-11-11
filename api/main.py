@@ -52,13 +52,13 @@ def get_new_cats():
     cats = NewCats.query.all()
     return {"new_cats": [
         {"id": cat.cat_name,
-         "owner_name": cat.owner_name
-         "phone_number": cat.phone_number
-         "cat_type": cat.cat_type
-         "where_found": cat.where_found
-         "reason_to_give_to_shelter": cat.reason_to_give_to_shelter
-         "breed": cat.breed
-         "gender": cat.gender
+         "owner_name": cat.owner_name,
+         "phone_number": cat.phone_number,
+         "cat_type": cat.cat_type,
+         "where_found": cat.where_found,
+         "reason_to_give_to_shelter": cat.reason_to_give_to_shelter,
+         "breed": cat.breed,
+         "gender": cat.gender,
          "cat_name": cat.cat_name
         }
         for cat in cats]
