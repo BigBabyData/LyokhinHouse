@@ -40,7 +40,7 @@ def get_cats():
 @app.route("/get-new-cats")
 def get_new_cats():
     cats = NewCats.query.all()
-    return {"new_cats": [cat for cat in cats]}
+    return {"new_cats": [cat.cat_name for cat in cats]}
 
 if __name__ == '__main__':
     # app.run()
