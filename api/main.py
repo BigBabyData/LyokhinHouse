@@ -30,7 +30,7 @@ class NewCats(db.Model):
 
 @app.route('/')
 def index():
-    return "LyokhinHouse API is now running!"
+    return {"status": "LyokhinHouse API is now running!"}
 
 @app.route("/get-cats-in-shelter")
 def get_cats():
