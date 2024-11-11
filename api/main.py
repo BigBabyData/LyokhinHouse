@@ -35,12 +35,34 @@ def index():
 @app.route("/get-cats-in-shelter")
 def get_cats():
     cats = CatsInShelter.query.all()
-    return {"cats_in_shelter": [(cat.cat_name, cat.id) for cat in cats]}
+    return {"cats_in_shelter": [
+        {"id": cat.id,
+         "cat_name": cat.cat_name,
+         "cat_age": cat.cat_age,
+         "description": cat.description,
+         "image_url": cat.image_url,
+         "time_at_shelter": cat.time_at_shelter,
+         "arrival_date": cat.arrival_date
+        }
+        for cat in cats]
+    }
 
 @app.route("/get-new-cats")
 def get_new_cats():
     cats = NewCats.query.all()
-    return {"new_cats": [cat.cat_name for cat in cats]}
+    return {"new_cats": [
+        {"id": cat.cat_name,
+         "owner_name": cat.owner_name
+         "phone_number": cat.phone_number
+         "cat_type": cat.cat_type
+         "where_found": cat.where_found
+         "reason_to_give_to_shelter": cat.reason_to_give_to_shelter
+         "breed": cat.breed
+         "gender": cat.gender
+         "cat_name": cat.cat_name
+        }
+        for cat in cats]
+    }
 
 if __name__ == '__main__':
     # app.run()
