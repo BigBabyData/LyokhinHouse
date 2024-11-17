@@ -434,7 +434,7 @@ input[id="name"]{
     justify-content: center;
 }
 
-.ancet-send button{
+.ancet-send button, .cat-send button{
     width: 350px;
     border: 3px solid #BAD731;
     border-radius: 20px;
@@ -488,7 +488,15 @@ input[id="name"]{
 .takeFS-list .card{
     margin: 0;
     margin-top: 40px;
-    margin-right:60px;
+    margin-right:70px;
+}
+
+.takeFS-list .card:hover{
+    color:#BAD731;
+}
+
+.takeFS-list .card-content:hover{
+    outline: 5px solid #BAD731;
 }
 
 .takeFS-list .card-content{
@@ -533,6 +541,142 @@ input[id="name"]{
     text-decoration-skip-ink: none;
     
 }
+
+/* ИНДИВИДУАЛЬНЫЕ СТРАНИЦЫ КОТОВ */
+
+.individual-cat-page{
+    background-color:#A8A8A8;
+    padding-top: 10px;
+}
+
+.individual-cat-page h1{
+    font-size: 64px;
+    font-weight: 400;
+    line-height: 84.48px;
+    text-align: center;
+    color:#FFFFFF;
+}
+
+.cat-page-graybox{
+    background-color: #DCDCDC;
+    display: flex;
+    width: 90%;
+    margin: 0 auto;
+    border-radius: 20px;
+    padding-top: 40px;
+}
+
+.individual-gallery {
+    text-align: center;
+    margin-left: 40px;
+}
+
+.active-image-container {
+    margin-bottom: 20px;
+}
+
+#active-image {
+    width: 500px; 
+    height: 400px; 
+    object-fit: cover;
+}
+
+.thumbnail-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 0;
+}
+
+.thumbnail {
+    width: 150px; 
+    height: 100px;
+    object-fit: cover;
+    cursor: pointer;
+    opacity: 0.6; /* Уменьшенная яркость миниатюр */
+    transition: opacity 0.3s;
+}
+
+.thumbnail:hover {
+    opacity: 1; /* Яркость при наведении */
+}
+
+.thumbnail.active {
+    opacity: 1; /* Яркость активной миниатюры */
+}
+
+.individual-cat-page img{
+    border-radius: 40px;
+}
+
+.cat-page-graybox p, .cat-page-graybox h2{
+    text-align: center;
+}
+
+.graybox-text-block{
+    width: 100%;
+}
+
+.cat-name{
+    font-size: 60px;
+    font-weight: 400;
+    line-height: 79.2px;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.graybox-text-block p{
+    margin-bottom: 20px ;
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 42.24px;
+}
+
+.graybox-text-block .age{
+    font-size: 36px;
+    font-weight: 400;
+    line-height: 43.57px;
+}
+
+.graybox-tel{
+    color:#A5A5A5;
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 42.24px;
+    margin-top: 140px ;
+}
+
+.cat-send button{
+    width: 450px;
+}
+
+.individual-cat-page h2{
+    color: #FFFFFF;
+    font-size: 64px;
+    font-weight: 400;
+    line-height: 84.48px;
+    text-align: center;
+}
+
+.graybox-text-block h2{
+    color: #000000;
+    font-size: 60px;
+    font-weight: 400;
+    line-height: 79.2px;
+}
+
+.cat-ancet{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.cat-ancet button{
+    margin-left: 0;
+    margin-bottom: 110px;
+    margin-top: 40px;
+}
+
 /* АДАПТАЦИЯ ПОД МОБИЛКИ */
 
 @media(max-width: 1000px){
@@ -696,8 +840,48 @@ input[id="name"]{
 
     /* ВЗЯТЬ ИЗ ПРИЮТА */
 
-
    .card:nth-child(15n){
         display: none;
+   }
+
+   /* ИНДИВИДУАЛЬНЫЕ СТРАНИЦЫ КОТОВ */
+
+   .individual-gallery{
+    width:90%;
+
+   }
+
+    .cat-page-graybox{
+        background-color: #A8A8A8;
+        flex-direction: column;
+   }
+
+   .active-image-container{
+    height: 620px;
+   }
+   #active-image{
+        width:100%;
+        height: 100%;
+   }
+
+   .thumbnail{
+    width:230px;
+    height: 130px;
+   }
+
+   .graybox-text-block{
+    margin-top:50px ;
+    height: auto;
+   }
+
+   .graybox-tel{
+    display: none;
+   }
+
+   .graybox-text-block .age{
+    color:#DCDCDC;
+    font-size: 36px;
+    font-weight: 400;
+    line-height: 43.57px;
    }
 }
