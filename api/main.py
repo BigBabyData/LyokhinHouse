@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request, jsonify
 from config import Config
 from flask_sqlalchemy import SQLAlchemy
 
@@ -6,6 +6,7 @@ app = Flask(__name__)
 app.config.from_object(Config)
 db = SQLAlchemy(app)
 
+# Модель для котов в приюте
 class CatsInShelter(db.Model):
     __tablename__ = "cats_in_shelter"
     id = db.Column(db.Integer, primary_key=True)
@@ -16,6 +17,7 @@ class CatsInShelter(db.Model):
     time_at_shelter = db.Column(db.Integer, nullable=True)
     arrival_date = db.Column(db.Date, nullable=True)
 
+# Модель для новых заявок
 class NewCats(db.Model):
     __tablename__ = "new_cats"
     id = db.Column(db.Integer, primary_key=True)
@@ -66,37 +68,39 @@ def get_new_cats():
 
 @app.route("/submit-application", methods=["POST"])
 def submit_application():
+    # Получение данных из тела запроса
     data = request.get_json()
 
-    owner_name = data.get_json("owner_name")
-    phone_number = data.get_json("phone_number")
-    cat_type = data.get_json("cat_type")
-    where_found = data.get_json("where_found")
-    reason_to_give_to_shelter = data.get_json("reason_to_give_to_shelter")
-    breed = data.get_json("breed")
-    gender = data.get_json("gender")
-    cat_name = data.get_json("cat_name")
+    owner_name = data.get("owner_name")
+    phone_number = data.get("phone_number")
+    cat_type = data.get("cat_type")
+    where_found = data.get("where_found")
+    reason_to_give_to_shelter = data.get("reason_to_give_to_shelter")
+    breed = data.get("breed")
+    gender = data.get("gender")
+    cat_name = data.get("cat_name")
 
-    new_cat_application = NewCats(owner_name=owner_name,
-                                  phone_number=phone_number,
-                                  cat_type=cat_type,
-                                  where_found=where_found,
-                                  reason_to_give_to_shelter=reason_to_give_to_shelter,
-                                  breed=breed,
-                                  gender=gender,
-                                  cat_name=cat_name
-                                  )
+    # Создание новой записи
+    new_cat_application = NewCats(
+        owner_name=owner_name,
+        phone_number=phone_number,
+        cat_type=cat_type,
+        where_found=where_found,
+        reason_to_give_to_shelter=reason_to_give_to_shelter,
+        breed=breed,
+        gender=gender,
+        cat_name=cat_name,
+    )
     
     try:
         db.session.add(new_cat_application)
         db.session.commit()
-        return jsonify({'message': 'Application added successfully!', 'id': new_application.id}), 201
+        return jsonify({'message': 'Application added successfully!', 'id': new_cat_application.id}), 201
     except Exception as e:
         db.session.rollback()
         return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
-    # app.run()
-
+    # Запуск приложения с Waitress
     from waitress import serve
     serve(app, host="0.0.0.0", port=5000)
