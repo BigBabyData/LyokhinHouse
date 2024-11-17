@@ -49,6 +49,25 @@ def get_cats():
         for cat in cats]
     }
 
+@app.route("/get-cat-in-shelter/<int:cat_id>", methods=["GET"])
+def get_cat_by_id(cat_id):
+    # Получение кота по ID
+    cat = CatsInShelter.query.get(cat_id)
+    
+    if not cat:
+        return jsonify({'error': 'Cat not found'}), 404
+
+    return {
+        "id": cat.id,
+        "cat_name": cat.cat_name,
+        "cat_age": cat.cat_age,
+        "description": cat.description,
+        "image_url": cat.image_url,
+        "time_at_shelter": cat.time_at_shelter,
+        "arrival_date": cat.arrival_date
+    }
+
+
 @app.route("/get-new-cats")
 def get_new_cats():
     cats = NewCats.query.all()
