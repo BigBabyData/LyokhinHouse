@@ -51,7 +51,7 @@ def get_cats():
 def get_new_cats():
     cats = NewCats.query.all()
     return {"new_cats": [
-        {"id": cat.cat_name,
+        {"id": cat.id,
          "owner_name": cat.owner_name,
          "phone_number": cat.phone_number,
          "cat_type": cat.cat_type,
@@ -63,6 +63,37 @@ def get_new_cats():
         }
         for cat in cats]
     }
+
+@app.route("/submit-application", methods=["POST"])
+def submit_application():
+    data = request.get_json()
+
+    owner_name = data.get_json("owner_name")
+    phone_number = data.get_json("phone_number")
+    cat_type = data.get_json("cat_type")
+    where_found = data.get_json("where_found")
+    reason_to_give_to_shelter = data.get_json("reason_to_give_to_shelter")
+    breed = data.get_json("breed")
+    gender = data.get_json("gender")
+    cat_name = data.get_json("cat_name")
+
+    new_cat_application = NewCats(owner_name=owner_name,
+                                  phone_number=phone_number,
+                                  cat_type=cat_type,
+                                  where_found=where_found,
+                                  reason_to_give_to_shelter=reason_to_give_to_shelter,
+                                  breed=breed,
+                                  gender=gender,
+                                  cat_name=cat_name
+                                  )
+    
+    try:
+        db.session.add(new_cat_application)
+        db.session.commit()
+        return jsonify({'message': 'Application added successfully!', 'id': new_application.id}), 201
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
     # app.run()
