@@ -42,40 +42,42 @@
                 <section class="giveout-section">
                     <h1>Отдать в приют</h1>
                     <div class="ancet">
-                        <div class="input">
-                            <input type="text" id="fio" name="fio" placeholder="ФИО" required>
-                        </div>
-                        <div class="input">
-                            <input type="tel" id="phone" name="phone" placeholder="Телефон" required>
-                        </div>
-                        <div class="ancet-info-block">
-                            <p>Какой у вас кот</p>
-                            <div class="input ancet-menu">
-                                <select id="cat-breed" name="cat-breed" onchange="toggleAdditionalFields()">
-                                    <option value="Уличный">Уличный</option>
-                                    <option value="Домашний">Домашний</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="input">
-                            <textarea id="source" name="source" placeholder="Где нашли" required></textarea>
-                        </div>
-                        <div id="additional-fields" style="display: none;">
+                        <form id="giveoutForm">
                             <div class="input">
-                                <input type="text" id="breed" name="breed" placeholder="Порода" required>
+                                <input type="text" id="fio" name="fio" placeholder="ФИО" required>
                             </div>
-                            <div class="additions-inputs">
-                                <div class="input">
-                                    <input type="text" id="gender" name="gender" placeholder="Пол" required>
-                                </div>
-                                <div class="input">
-                                    <input type="text" id="name" name="name" placeholder="Имя" required>
+                            <div class="input">
+                                <input type="tel" id="phone" name="phone" placeholder="Телефон" required>
+                            </div>
+                            <div class="ancet-info-block">
+                                <p>Какой у вас кот</p>
+                                <div class="input ancet-menu">
+                                    <select id="cat-breed" name="cat-breed" onchange="toggleAdditionalFields()">
+                                        <option value="Домашний">Домашний</option>
+                                        <option value="Уличный">Уличный</option>
+                                    </select>
                                 </div>
                             </div>
-                        </div>
-                        <div class="ancet-send">
-                            <button type="submit" class="ancet-send-text">Отправить</button>
-                        </div>
+                            <div class="input">
+                                <textarea id="source" name="source" placeholder="Где нашли" required></textarea>
+                            </div>
+                            <div id="additional-fields" style="display: none;">
+                                <div class="input">
+                                    <input type="text" id="breed" name="breed" placeholder="Порода" required>
+                                </div>
+                                <div class="additions-inputs">
+                                    <div class="input">
+                                        <input type="text" id="gender" name="gender" placeholder="Пол" required>
+                                    </div>
+                                    <div class="input">
+                                        <input type="text" id="name" name="name" placeholder="Имя" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ancet-send">
+                                <button type="submit" class="ancet-send-text">Отправить</button>
+                            </div>
+                        </form>
                     </div>
                 </section>
                 <section class="giveout-contacts">
@@ -86,5 +88,5 @@
             </main>
         </div>
     </body>
-    <script src="script.js"></script>
+    <script src="scripts/giveoutScript.js"></script>
 </html>

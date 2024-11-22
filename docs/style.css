@@ -31,6 +31,10 @@ button{
     padding: 0;
     background-color: rgba(93, 93, 93, 0);
 }
+button:active {
+    transform: scale(0.95); 
+    opacity: 50%; 
+}
 
 header{
     height: 86px;
@@ -677,6 +681,39 @@ input[id="name"]{
     margin-top: 40px;
 }
 
+/* СТРАНИЦА О НАС */
+
+.about-hero h1{
+    text-align: center;
+    margin-top: 110px;
+    margin-bottom: 180px;
+    font-size: 64px;
+    font-weight: 400;
+    line-height: 84.48px;
+}
+
+.about-hero h2{
+    font-size: 64px;
+    font-weight: 400;
+    line-height: 84.48px;
+    text-align: center;
+    color: #000000;
+}
+
+.about-hero p{
+    font-size: 28px;
+    font-weight: 400;
+    line-height: 36.96px;
+    color: #5D5D5D;
+    margin-left: 60px;
+    margin-right: 60px;
+    margin-bottom: 60px;
+}
+
+.about-hero{
+    padding-bottom: 20px;
+}
+
 /* АДАПТАЦИЯ ПОД МОБИЛКИ */
 
 @media(max-width: 1000px){
@@ -884,4 +921,16 @@ input[id="name"]{
     font-weight: 400;
     line-height: 43.57px;
    }
+
+   /* СТРАНИЦА О НАС */
+
+   .about-hero p{
+    font-size: 28px;
+    font-weight: 400;
+    line-height: 36.96px;
+    color: #5D5D5D;
+    margin-left: 60px;
+    margin-right: 60px;
+    text-align: center;
+}
 }
