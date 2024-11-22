@@ -32,9 +32,14 @@ document.querySelectorAll('.thumbnail').forEach(thumbnail => {
 // ОТПРАВКА ФОРМЫ
 
 const uniqueId = localStorage.getItem('selectedCatId');
+let isSubmitting = false; // Флаг для отслеживания состояния отправки
 
 document.getElementById('adoptionForm').addEventListener('submit', function(event) {
     event.preventDefault(); 
+
+    if (isSubmitting) return; // Проверка, выполняется ли уже запрос
+
+    isSubmitting = true; // Установка флага
 
     const formData = {
         id: uniqueId,
@@ -55,11 +60,14 @@ document.getElementById('adoptionForm').addEventListener('submit', function(even
     .then(response => response.json())
     .then(data => {
         console.log('Успех:', data);
-        document.getElementById('adoptionForm').reset(); 
+        document.getElementById('adoptionForm').reset(); // Очистка формы
         alert('Заявка успешно отправлена!'); 
     })
     .catch((error) => {
         console.error('Ошибка:', error);
         alert('Произошла ошибка при отправке заявки.');
+    })
+    .finally(() => {
+        isSubmitting = false; // Сброс флага после завершения
     });
 });

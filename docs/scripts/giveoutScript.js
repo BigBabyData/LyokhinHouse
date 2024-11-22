@@ -44,8 +44,14 @@ function setRequired(isRequired) {
 
 // ФОРМА
 
+let isSubmitting = false; // Флаг для отслеживания состояния отправки
+
 document.getElementById('giveoutForm').addEventListener('submit', function(event) {
     event.preventDefault(); 
+
+    if (isSubmitting) return; // Проверка, выполняется ли уже запрос
+
+    isSubmitting = true; // Установка флага
 
     const selectElement = document.getElementById('cat-breed');
     const sourceInput = document.getElementById('source');
@@ -54,14 +60,15 @@ document.getElementById('giveoutForm').addEventListener('submit', function(event
         "owner_name": document.getElementById('fio').value,
         "phone_number": document.getElementById('phone').value,
         "cat_type": selectElement.value,
-        "reason_to_give_to_shelter": selectElement.value === 'Домашний' ? sourceInput.value : null,
-        "where_found": selectElement.value === 'Уличный' ? sourceInput.value : null,
-        "breed": document.getElementById('breed').value || null,
-        "gender": document.getElementById('gender').value || null,
-        "cat_name": document.getElementById('name').value || null,
+        "reason_to_give_to_shelter": selectElement.value === 'Домашний' ? sourceInput.value : "",
+        "where_found": selectElement.value === 'Уличный' ? sourceInput.value : "",
+        "breed": document.getElementById('breed').value || "",
+        "gender": document.getElementById('gender').value || "",
+        "cat_name": document.getElementById('name').value || "",
     };
 
     // ОТПРАВКА ДАННЫХ НА СЕРВЕР
+
     fetch('https://lyokhinhouse-api.up.railway.app/submit-application', {
         method: 'POST',
         headers: {
@@ -78,5 +85,8 @@ document.getElementById('giveoutForm').addEventListener('submit', function(event
     .catch((error) => {
         console.error('Ошибка:', error);
         alert('Произошла ошибка при отправке заявки.');
+    })
+    .finally(() => {
+        isSubmitting = false; // Сброс флага после завершения
     });
 });
