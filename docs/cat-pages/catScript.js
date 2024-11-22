@@ -38,9 +38,9 @@ document.getElementById('adoptionForm').addEventListener('submit', function(even
 
     const formData = {
         id: uniqueId,
-        fio: document.getElementById('fio').value,
-        phone: document.getElementById('phone').value,
-        time: document.getElementById('time').value,
+        "full_name": document.getElementById('fio').value,
+        "phone_number": document.getElementById('phone').value,
+        "when_pick_up": document.getElementById('time').value,
     };
 
     // ОТПРАВКА НА СЕРВЕР
@@ -59,7 +59,6 @@ document.getElementById('adoptionForm').addEventListener('submit', function(even
         alert('Заявка успешно отправлена!'); 
     })
     .catch((error) => {
-        console.log(id, fio, phone, time);
         console.error('Ошибка:', error);
         alert('Произошла ошибка при отправке заявки.');
     });
