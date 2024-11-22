@@ -31,10 +31,13 @@ document.querySelectorAll('.thumbnail').forEach(thumbnail => {
 
 // ОТПРАВКА ФОРМЫ
 
+const uniqueId = sessionStorage.getItem('catId');
+
 document.getElementById('adoptionForm').addEventListener('submit', function(event) {
     event.preventDefault(); 
 
     const formData = {
+        id: uniqueId,
         fio: document.getElementById('fio').value,
         phone: document.getElementById('phone').value,
         time: document.getElementById('time').value,

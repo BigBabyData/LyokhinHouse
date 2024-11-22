@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
 // КАРТОЧКИ НА СТРАНИЦЕ "ВЗЯТЬ ИЗ ПРИЮТА"
 
 const cats = [
-    { name: 'Лёха', age: '3 мес', description: 'Красив, молод и очень хочет домой.', img: 'img/image3.jpg', url: 'cat-pages/cat1.html' },
+    { id: 0, name: 'Лёха', age: '3 мес', description: 'Красив, молод и очень хочет домой.', img: 'img/image3.jpg', url: 'cat-pages/cat1.html' },
     { name: 'Лёха', age: '3 мес', description: 'Красив, молод и очень хочет домой.', img: 'img/image3.jpg', url: 'cat-pages/cat1.html'  },
     { name: 'Лёха', age: '3 мес', description: 'Красив, молод и очень хочет домой.', img: 'img/image3.jpg', url: 'cat-pages/cat1.html'  },
     { name: 'Лёха', age: '3 мес', description: 'Красив, молод и очень хочет домой.', img: 'img/image3.jpg', url: 'cat-pages/cat1.html'  },
@@ -57,6 +57,12 @@ const cats = [
     { name: 'Лёха', age: '3 мес', description: 'Красив, молод и очень хочет домой.', img: 'img/image3.jpg' },
     { name: 'Лёха', age: '3 мес', description: 'Красив, молод и очень хочет домой.', img: 'img/image3.jpg' },
 ];
+
+card.addEventListener('click', () => {
+    const id = cat.id; // Получение уникального ID
+    sessionStorage.setItem('catId', id); // Сохранение ID в sessionStorage
+    window.location.href = cat.url; // Перенаправление на другую страницу
+});
 
 let currentPage = 0;
 const itemsPerPage = 15; // Количество карточек на странице
