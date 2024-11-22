@@ -47,18 +47,21 @@ function setRequired(isRequired) {
 document.getElementById('giveoutForm').addEventListener('submit', function(event) {
     event.preventDefault(); 
 
+    const selectElement = document.getElementById('cat-breed');
+    const sourceInput = document.getElementById('source');
+
     const formData = {
         "owner_name": document.getElementById('fio').value,
         "phone_number": document.getElementById('phone').value,
-        "cat_type": document.getElementById('cat-breed').value,
-        "where_found": document.getElementById('source').value,
+        "cat_type": selectElement.value,
+        "reason_to_give_to_shelter": selectElement.value === 'Домашний' ? sourceInput.value : null,
+        "where_found": selectElement.value === 'Уличный' ? sourceInput.value : null,
         "breed": document.getElementById('breed').value || null,
         "gender": document.getElementById('gender').value || null,
         "cat_name": document.getElementById('name').value || null,
     };
 
     // ОТПРАВКА ДАННЫХ НА СЕРВЕР
-
     fetch('https://lyokhinhouse-api.up.railway.app/submit-application', {
         method: 'POST',
         headers: {
