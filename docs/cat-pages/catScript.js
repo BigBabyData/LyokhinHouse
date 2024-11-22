@@ -28,3 +28,39 @@ document.querySelectorAll('.thumbnail').forEach(thumbnail => {
         this.classList.add('active');
     };
 });
+
+// ОТПРАВКА ФОРМЫ
+
+const uniqueId = localStorage.getItem('selectedCatId');
+
+document.getElementById('adoptionForm').addEventListener('submit', function(event) {
+    event.preventDefault(); 
+
+    const formData = {
+        id: uniqueId,
+        fio: document.getElementById('fio').value,
+        phone: document.getElementById('phone').value,
+        time: document.getElementById('time').value,
+    };
+
+    // ОТПРАВКА НА СЕРВЕР
+
+    fetch('/submit', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Успех:', data);
+        document.getElementById('adoptionForm').reset(); 
+        alert('Заявка успешно отправлена!'); 
+    })
+    .catch((error) => {
+        console.log(id, fio, phone, time);
+        console.error('Ошибка:', error);
+        alert('Произошла ошибка при отправке заявки.');
+    });
+});
