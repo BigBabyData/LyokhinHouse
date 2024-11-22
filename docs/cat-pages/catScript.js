@@ -31,7 +31,7 @@ document.querySelectorAll('.thumbnail').forEach(thumbnail => {
 
 // ОТПРАВКА ФОРМЫ
 
-const uniqueId = sessionStorage.getItem('catId');
+const uniqueId = localStorage.getItem('selectedCatId');
 
 document.getElementById('adoptionForm').addEventListener('submit', function(event) {
     event.preventDefault(); 
@@ -59,6 +59,7 @@ document.getElementById('adoptionForm').addEventListener('submit', function(even
         alert('Заявка успешно отправлена!'); 
     })
     .catch((error) => {
+        console.log(id, fio, phone, time);
         console.error('Ошибка:', error);
         alert('Произошла ошибка при отправке заявки.');
     });
