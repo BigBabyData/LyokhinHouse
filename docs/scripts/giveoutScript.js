@@ -48,13 +48,13 @@ document.getElementById('giveoutForm').addEventListener('submit', function(event
     event.preventDefault(); 
 
     const formData = {
-        fio: document.getElementById('fio').value,
-        phone: document.getElementById('phone').value,
-        cat_breed: document.getElementById('cat-breed').value,
-        source: document.getElementById('source').value,
-        breed: document.getElementById('breed').value || null,
-        gender: document.getElementById('gender').value || null,
-        name: document.getElementById('name').value || null,
+        "owner_name": document.getElementById('fio').value,
+        "phone_number": document.getElementById('phone').value,
+        "cat_type": document.getElementById('cat-breed').value,
+        "where_found": document.getElementById('source').value,
+        "breed": document.getElementById('breed').value || null,
+        "gender": document.getElementById('gender').value || null,
+        "cat_name": document.getElementById('name').value || null,
     };
 
     // ОТПРАВКА ДАННЫХ НА СЕРВЕР
