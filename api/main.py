@@ -30,6 +30,13 @@ class NewCats(db.Model):
     gender = db.Column(db.String, nullable=True)
     cat_name = db.Column(db.String, nullable=True)
 
+class TakeCatApplication(db.Model):
+    __tablename__ = "applications"
+    id = db.Column(db.Integer, primary_key=True)
+    full_name = db.Column(db.String, nullable=True)
+    phone_number = db.Column(db.String, nullable=True)
+    when_pick_up = db.Column(db.String, nullable=True)
+
 @app.route('/')
 def index():
     return {"status": "LyokhinHouse API is now running!"}
@@ -123,6 +130,41 @@ def submit_application():
         db.session.add(new_cat_application)
         db.session.commit()
         return jsonify({'message': 'Application added successfully!', 'id': new_cat_application.id}), 201
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({'error': str(e)}), 500
+
+# curl -X POST https://lyokhinhouse-api.up.railway.app/submit-application \
+# -H "Content-Type: application/json" \
+# -d '{
+#     "owner_name": "Ваше имя",
+#     "phone_number": "Ваш номер телефона",
+#     "cat_type": "Тип кошки",
+#     "where_found": "Место нахождения",
+#     "reason_to_give_to_shelter": "Причина передачи в приют",
+#     "breed": "Порода",
+#     "gender": "Пол",
+#     "cat_name": "Имя кошки"
+# }'
+
+@app.route("/submit-take-cat", methods=["POST"])
+def take_cat():
+    data = request.get_json()
+
+    full_name = data.get_json("full_name")
+    phone_number = data.get_json("phone_number")
+    when_pick_up = data.get_json("when_pick_up")
+
+    take_cat_application = TakeCatApplication(
+        full_name=full_name,
+        phone_number=phone_number,
+        when_pick_up=when_pick_up
+    )
+
+    try:
+        db.session.add(take_cat_application)
+        db.session.commit()
+        return jsonify({'message': 'Application added successfully!', 'id': take_cat_application.id}), 201
     except Exception as e:
         db.session.rollback()
         return jsonify({'error': str(e)}), 500
