@@ -154,11 +154,13 @@ def submit_application():
 def take_cat():
     data = request.get_json()
 
+    id = data.get("id")
     full_name = data.get("full_name")
     phone_number = data.get("phone_number")
     when_pick_up = data.get("when_pick_up")
 
     take_cat_application = TakeCatApplication(
+        id=id,
         full_name=full_name,
         phone_number=phone_number,
         when_pick_up=when_pick_up
