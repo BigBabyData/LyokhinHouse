@@ -151,9 +151,9 @@ def submit_application():
 def take_cat():
     data = request.get_json()
 
-    full_name = data.get_json("full_name")
-    phone_number = data.get_json("phone_number")
-    when_pick_up = data.get_json("when_pick_up")
+    full_name = data.get("full_name")
+    phone_number = data.get("phone_number")
+    when_pick_up = data.get("when_pick_up")
 
     take_cat_application = TakeCatApplication(
         full_name=full_name,
@@ -168,6 +168,15 @@ def take_cat():
     except Exception as e:
         db.session.rollback()
         return jsonify({'error': str(e)}), 500
+
+# curl -X POST https://lyokhinhouse-api.up.railway.app/submit-take-cat \
+# -H "Content-Type: application/json" \
+# -d '{
+#     "full_name": "Иван Иванов",
+#     "phone_number": "+1234567890",
+#     "when_pick_up": "2023-10-01"
+# }'
+
 
 if __name__ == '__main__':
     # Запуск приложения с Waitress
