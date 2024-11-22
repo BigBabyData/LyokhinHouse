@@ -18,8 +18,8 @@ class CatsInShelter(db.Model):
     arrival_date = db.Column(db.Date, nullable=True)
 
 # Модель для новых заявок
-class NewCats(db.Model):
-    __tablename__ = "new_cats"
+class NewCatsApplications(db.Model):
+    __tablename__ = "new_cats_applications"
     id = db.Column(db.Integer, primary_key=True)
     owner_name = db.Column(db.String, nullable=True)
     phone_number = db.Column(db.String, nullable=True)
@@ -31,7 +31,7 @@ class NewCats(db.Model):
     cat_name = db.Column(db.String, nullable=True)
 
 class TakeCatApplication(db.Model):
-    __tablename__ = "applications"
+    __tablename__ = "take_cat_applications"
     id = db.Column(db.Integer, primary_key=True)
     full_name = db.Column(db.String, nullable=True)
     phone_number = db.Column(db.String, nullable=True)
@@ -85,7 +85,7 @@ def get_cat_by_id(cat_id):
 
 @app.route("/get-new-cats")
 def get_new_cats():
-    cats = NewCats.query.all()
+    cats = NewCatsApplications.query.all()
     return {"new_cats": [
         {"id": cat.id,
          "owner_name": cat.owner_name,
@@ -115,7 +115,7 @@ def submit_application():
     cat_name = data.get("cat_name")
 
     # Создание новой записи
-    new_cat_application = NewCats(
+    new_cat_application = NewCatsApplications(
         owner_name=owner_name,
         phone_number=phone_number,
         cat_type=cat_type,
