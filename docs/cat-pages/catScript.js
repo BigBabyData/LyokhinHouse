@@ -45,7 +45,7 @@ document.getElementById('adoptionForm').addEventListener('submit', function(even
 
     // ОТПРАВКА НА СЕРВЕР
 
-    fetch('/submit', {
+    fetch('/submit-take-cat', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

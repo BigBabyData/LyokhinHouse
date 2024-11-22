@@ -59,7 +59,7 @@ document.getElementById('giveoutForm').addEventListener('submit', function(event
 
     // ОТПРАВКА ДАННЫХ НА СЕРВЕР
 
-    fetch('/submit', {
+    fetch('/submit-application', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

@@ -58,7 +58,6 @@ const cats = [
     { name: 'Лёха', age: '3 мес', description: 'Красив, молод и очень хочет домой.', img: 'img/image3.jpg' },
 ];
 
-
 let currentPage = 0;
 const itemsPerPage = 15; // Количество карточек на странице
 
