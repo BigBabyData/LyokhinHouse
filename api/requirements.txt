@@ -3,3 +3,4 @@ waitress
 psycopg2-binary
 Flask_SQLAlchemy
 cloudinary
+flask_cors
