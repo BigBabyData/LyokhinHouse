@@ -81,8 +81,9 @@ function renderCats() {
         
         //  обработчик клика для перенаправления
         card.addEventListener('click', () => {
-            window.location.href = catScript.js; // Перенаправление на уникальную страницу
-        });
+            localStorage.setItem('selectedCatId', cat.id); // Сохранение ID в localStorage
+            window.location.href = cat.url; // Перенаправление на уникальную страницу
+        })
     
         card.innerHTML = `
             <div class="card-content">
