@@ -61,7 +61,7 @@ const cats = [
 card.addEventListener('click', () => {
     const id = cat.id; // Получение уникального ID
     sessionStorage.setItem('catId', id); // Сохранение ID в sessionStorage
-    window.location.href = cat.url; // Перенаправление на другую страницу
+    window.location.href = catScript.js; // Перенаправление на другую страницу
 });
 
 let currentPage = 0;
@@ -81,7 +81,7 @@ function renderCats() {
         
         //  обработчик клика для перенаправления
         card.addEventListener('click', () => {
-            window.location.href = cat.url; // Перенаправление на уникальную страницу
+            window.location.href = catScript.js; // Перенаправление на уникальную страницу
         });
     
         card.innerHTML = `
