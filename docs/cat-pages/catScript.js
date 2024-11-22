@@ -45,7 +45,7 @@ document.getElementById('adoptionForm').addEventListener('submit', function(even
 
     // ОТПРАВКА НА СЕРВЕР
 
-    fetch('/submit-take-cat', {
+    fetch('https://lyokhinhouse-api.up.railway.app/submit-take-cat', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

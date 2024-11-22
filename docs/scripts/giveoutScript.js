@@ -59,7 +59,7 @@ document.getElementById('giveoutForm').addEventListener('submit', function(event
 
     // ОТПРАВКА ДАННЫХ НА СЕРВЕР
 
-    fetch('/submit-application', {
+    fetch('https://lyokhinhouse-api.up.railway.app/submit-application', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
