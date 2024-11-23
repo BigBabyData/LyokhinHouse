@@ -1,5 +1,5 @@
 # LyokhinHouse🏠
-[Web-site](https://bigbabydata.github.io/LyokhinHouse/) for LyokhinHouse pet shelter🐈.
+[Web-site](https://lyokhinhouse.up.railway.app/) for LyokhinHouse pet shelter🐈.
 
 # API
 *API URL*: ```https://lyokhinhouse-api.up.railway.app```
