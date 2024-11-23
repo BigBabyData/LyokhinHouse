@@ -1,7 +1,7 @@
 # LyokhinHouse🏠
 [Web-site](https://lyokhinhouse.up.railway.app/) for LyokhinHouse pet shelter🐈.
 
-# API
+# FlaskAPI
 *API URL*: ```https://lyokhinhouse-api.up.railway.app```
 
 ***Запросы:***
