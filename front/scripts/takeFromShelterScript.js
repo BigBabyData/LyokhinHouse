@@ -14,12 +14,38 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+// ЗАПРОС НА ПОЛУЧЕНИЕ КОТОВ ИЗ БД
+
+async function fetchCats() {
+    try {
+        const response = await fetch('https://lyokhinhouse-api.up.railway.app/get-cats-in-shelter', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error('Сеть ответила с ошибкой: ' + response.status);
+        }
+
+        const data = await response.json();
+        console.log('Список котов:', data);
+
+        // Здесь вы можете обработать полученные данные и отобразить их на странице
+        displayCats(data);
+    } catch (error) {
+        console.error('Ошибка при получении списка котов:', error);
+        alert('Произошла ошибка при получении данных.');
+    }
+}
+
 // КАРТОЧКИ НА СТРАНИЦЕ "ВЗЯТЬ ИЗ ПРИЮТА"
 
 const cats = [
-    { id: 0, name: 'Лёха', age: '3 мес', description: 'Красив, молод и очень хочет домой.', img: 'img/image3.jpg', url: 'cat-pages/cat1.html' },
-    { id: 1, name: 'Лёха', age: '3 мес', description: 'Красив, молод и очень хочет домой.', img: 'img/image3.jpg', url: 'cat-pages/cat1.html' },
-    { id: 2, name: 'Лёха', age: '3 мес', description: 'Красив, молод и очень хочет домой.', img: 'img/image3.jpg', url: 'cat-pages/cat1.html' },
+    { id: 0, name: 'Лёха', age: '3 мес', description: 'Красив, молод и очень хочет домой.', img: 'img/image3.jpg', url: 'cat-pages/cat1.html', gallery: ["../img/image2.jpg", "../img/image1mobile.jpg", "../img/image2.jpg"]},
+    { id: 1, name: 'Вася', age: '5 мес', description: 'Красив, молод и очень хочет домой.', img: 'img/image1mobile.jpg', url: 'cat-pages/cat1.html', gallery: ["../img/image1mobile.jpg", "../img/image2.jpg", "../img/image2.jpg"] },
+    { id: 2, name: 'Саша', age: '7 мес', description: 'Красив, молод и очень хочет домой.', img: 'img/image3.jpg', url: 'cat-pages/cat1.html' },
     { name: 'Лёха', age: '3 мес', description: 'Красив, молод и очень хочет домой.', img: 'img/image3.jpg', url: 'cat-pages/cat1.html'  },
     { name: 'Лёха', age: '3 мес', description: 'Красив, молод и очень хочет домой.', img: 'img/image3.jpg', url: 'cat-pages/cat1.html'  },
     { name: 'Лёха', age: '3 мес', description: 'Красив, молод и очень хочет домой.', img: 'img/image3.jpg', url: 'cat-pages/cat1.html'  },
@@ -72,13 +98,13 @@ function renderCats() {
     pageCats.forEach(cat => {
         const card = document.createElement('li');
         card.className = 'card';
-        
-        //  обработчик клика для перенаправления
+
         card.addEventListener('click', () => {
-            localStorage.setItem('selectedCatId', cat.id); // Сохранение ID в localStorage
+            localStorage.setItem('selectedCat', JSON.stringify(cat)); // Сохранение всего объекта
             window.location.href = cat.url; // Перенаправление на уникальную страницу
-        })
-    
+     
+        });
+
         card.innerHTML = `
             <div class="card-content">
                 <img src="${cat.img}" class="card-image" width="339" height="262">
@@ -87,23 +113,20 @@ function renderCats() {
                 <p class="description">${cat.description}</p>
             </div>
         `;
-        
+
         catsList.appendChild(card);
     });
 
     updateButtons();
-    // Прокрутка к секции "Забрать из приюта"
     document.querySelector('.takeFS-main').scrollIntoView({ behavior: 'smooth' });
 }
-
-// КНОПКИ НА СТРАНИЦЕ "ВЗЯТЬ ИЗ ПРИЮТА"
 
 function updateButtons() {
     const prevButton = document.getElementById('prev-button');
     const nextButton = document.getElementById('next-button');
 
-    prevButton.disabled = currentPage === 0; // Дизаблить кнопку, если на первой странице
-    nextButton.disabled = (currentPage + 1) * itemsPerPage >= cats.length; // Дизаблить кнопку, если на последней странице
+    prevButton.disabled = currentPage === 0;
+    nextButton.disabled = (currentPage + 1) * itemsPerPage >= cats.length;
 }
 
 document.getElementById('prev-button').addEventListener('click', () => {
@@ -121,8 +144,6 @@ document.getElementById('next-button').addEventListener('click', () => {
 });
 
 // ИНИЦИАЛИЗАЦИЯ
-
 renderCats();
-
 
 

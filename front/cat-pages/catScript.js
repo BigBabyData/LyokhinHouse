@@ -16,17 +16,55 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // ГАЛЕРЕЯ
 
-document.querySelectorAll('.thumbnail').forEach(thumbnail => {
-    thumbnail.onclick = function(evt) {
-        evt.preventDefault();
+document.addEventListener('DOMContentLoaded', () => {
+    const selectedCat = JSON.parse(localStorage.getItem('selectedCat'));
+
+    if (selectedCat) {
+        document.querySelector('.cat-name').textContent = selectedCat.name;
+        document.querySelector('.age').textContent = selectedCat.age;
+        document.querySelector('.cat-page-description').textContent = selectedCat.description;
+
+        // Устанавливаем активное изображение
         const activeImage = document.getElementById('active-image');
-        activeImage.src = this.src;
-        console.log("click")
-        document.querySelectorAll('.thumbnail').forEach(item => {
-            item.classList.remove('active');
+        activeImage.src = selectedCat.img; // Основное изображение
+
+        // Создание галереи
+        const thumbnailContainer = document.getElementById('thumbnail-container');
+        selectedCat.gallery.forEach((image, index) => {
+            const liElement = document.createElement('li');
+            const imgElement = document.createElement('img');
+            
+            imgElement.src = image;
+            imgElement.alt = `Изображение ${index + 1}`;
+            imgElement.className = 'thumbnail';
+            if (index === 0) {
+                imgElement.classList.add('active'); // Делаем первое изображение активным
+            }
+
+            // Обработчик клика для миниатюр
+            imgElement.addEventListener('click', () => {
+                activeImage.src = image; // Обновляем активное изображение
+                document.querySelectorAll('.thumbnail').forEach(item => {
+                    item.classList.remove('active');
+                });
+                imgElement.classList.add('active'); // Добавляем активный класс к текущему изображению
+            });
+
+            liElement.appendChild(imgElement);
+            thumbnailContainer.appendChild(liElement);
         });
-        this.classList.add('active');
-    };
+
+        if (selectedCat.gallery.length > 0) {
+            activeImage.src = selectedCat.gallery[0]; // Устанавливаем первое изображение как активное
+        }
+    } else {
+        console.error('Кот не найден');
+    }
+
+    // Обработчик для кнопки "Назад"
+    document.querySelector('.back-button').addEventListener('click', () => {
+        window.history.back();
+    });
 });
 
 // ОТПРАВКА ФОРМЫ
@@ -71,3 +109,4 @@ document.getElementById('adoptionForm').addEventListener('submit', function(even
         isSubmitting = false; // Сброс флага после завершения
     });
 });
+

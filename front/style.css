@@ -495,6 +495,10 @@ input[id="name"]{
     margin-right:70px;
 }
 
+.takeFS-list .card-image{
+    border-radius: 20px;
+}
+
 .takeFS-list .card:hover{
     color:#BAD731;
 }
@@ -713,6 +717,15 @@ input[id="name"]{
 .about-hero{
     padding-bottom: 20px;
 }
+
+.about-graybox{
+    background-color: #E6E6E6;
+    margin-left: 20px;
+    margin-right: 20px;
+    padding-top: 15px;
+    padding-bottom: 20px;
+}
+
 
 /* АДАПТАЦИЯ ПОД МОБИЛКИ */
 
