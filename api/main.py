@@ -225,13 +225,24 @@ def delete_new_cat(id):
         db.session.rollback()
         return jsonify({"error": str(e)}), 500
 
-# curl -X POST https://lyokhinhouse-api.up.railway.app/submit-take-cat \
-# -H "Content-Type: application/json" \
-# -d '{
-#     "full_name": "Иван Иванов",
-#     "phone_number": "+1234567890",
-#     "when_pick_up": "2023-10-01"
-# }'
+@app.route("/delete_take_cat_application/<int:id>", methods=["DELETE"])
+def delete_take_cat(id):
+    admin_token = request.headers.get('Token')
+    
+    if admin_token != ADMIN_TOKEN:
+        return {"Answer": "Access denied"}, 403
+    
+    application = TakeCatApplication.query.get(id)
+    if application is None:
+        return jsonify({"error": "Application not found"}), 404
+
+    try:
+        db.session.delete(application)
+        db.session.commit()
+        return jsonify({"message": "Application deleted successfully"}), 200
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"error": str(e)}), 500
 
 
 if __name__ == '__main__':
