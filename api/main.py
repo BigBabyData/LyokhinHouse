@@ -94,7 +94,7 @@ def get_new_cats():
     admin_token = request.headers.get('Token')
 
     if admin_token != ADMIN_TOKEN:
-        return {"Acces denied"}
+        return {"Answer": "Acces denied"}
 
     cats = NewCatsApplications.query.all()
     
@@ -188,7 +188,7 @@ def get_take_cats_applications():
     admin_token = request.headers.get('Token')
 
     if admin_token != ADMIN_TOKEN:
-        return {"Acces denied"}
+        return {"Answer": "Acces denied"}
     
     applications = TakeCatApplication.query.all()
     
