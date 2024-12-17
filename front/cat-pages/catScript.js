@@ -142,7 +142,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Делаем заголовок "Забрать [Имя кота]"
         const adoptionHeader = document.querySelector('h2');
         if (adoptionHeader) {
-            adoptionHeader.textContent = `Забрать ${selectedCat.cat_name || 'котика'}`;
+            adoptionHeader.textContent = `Забрать ${"котика" + "«" + selectedCat.cat_name + "»" || 'котика'}`;
         }
 
         // Если галереи нет, закомментируем блок ниже или удалим:
