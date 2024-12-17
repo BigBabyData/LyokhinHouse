@@ -31,9 +31,7 @@ async function fetchCats() {
 
         const data = response.json();
         console.log('Список котов:', data);
-
-        // Здесь вы можете обработать полученные данные и отобразить их на странице
-        displayCats(data);
+        
     } catch (error) {
         console.error('Ошибка при получении списка котов:', error);
         alert('Произошла ошибка при получении данных.');
