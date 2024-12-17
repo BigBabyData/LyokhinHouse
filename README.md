@@ -30,7 +30,7 @@ https://lyokhinhouse-api.up.railway.app
 ### 2. Получение всех котов в приюте
 
 **Эндпоинт:**  
-```GET /get_cats_in_shelter```
+```GET /get-cats-in-shelter```
 
 **Описание:**  
 Возвращает список всех котов, содержащихся в приюте.
@@ -65,7 +65,7 @@ https://lyokhinhouse-api.up.railway.app
 ### 3. Получение конкретного кота по ID
 
 **Эндпоинт:**  
-```GET /get_cat_in_shelter/<int:cat_id>```
+```GET /get-cat-in-shelter/<int:cat_id>```
 
 **Описание:**  
 Возвращает данные о конкретном коте, находящемся в приюте, по его уникальному ID.
@@ -94,7 +94,7 @@ https://lyokhinhouse-api.up.railway.app
 ### 4. Отправка заявки на добавление кота в приют
 
 **Эндпоинт:**  
-```POST /submit_application```
+```POST /submit-application```
 
 **Описание:**  
 Принимает заявку на добавление нового кота в приют. Отправитель заполняет форму с данными о коте, а также контактные данные.
@@ -134,7 +134,7 @@ https://lyokhinhouse-api.up.railway.app
 ### 5. Отправка заявки на забирание кота из приюта
 
 **Эндпоинт:**  
-```POST /submit_take_cat```
+```POST /submit-take-cat```
 
 **Описание:**  
 Принимает заявку от человека, желающего забрать кота из приюта.
@@ -173,7 +173,7 @@ https://lyokhinhouse-api.up.railway.app
 ### 6. Получение всех заявок на добавление новых котов
 
 **Эндпоинт:**  
-```GET /get_new_cats_applications```
+```GET /get-new-cats-applications```
 
 **Описание:**  
 Возвращает список всех заявок на добавление котов в приют. Требуется админ-токен.
@@ -201,7 +201,7 @@ https://lyokhinhouse-api.up.railway.app
 ### 7. Получение всех заявок на забирание кота
 
 **Эндпоинт:**  
-```GET /get_take_cats_applications```
+```GET /get-take-cats-applications```
 
 **Описание:**  
 Возвращает список всех заявок на забирание кота из приюта. Требуется админ-токен.
@@ -224,7 +224,7 @@ https://lyokhinhouse-api.up.railway.app
 ### 8. Удаление заявки на нового кота
 
 **Эндпоинт:**  
-```DELETE /delete_new_cat_application/<int:app_id>```
+```DELETE /delete-new_cat-application/<int:app_id>```
 
 **Описание:**  
 Удаляет заявку на добавление кота по ее уникальному идентификатору. Требуется админ-токен.
@@ -254,7 +254,7 @@ https://lyokhinhouse-api.up.railway.app
 ### 9. Удаление заявки на забирание кота
 
 **Эндпоинт:**  
-```DELETE /delete_take_cat_application/<int:app_id>```
+```DELETE /delete-take-cat-application/<int:app_id>```
 
 **Описание:**  
 Удаляет заявку на забирание кота из приюта по ее уникальному идентификатору. Требуется админ-токен.
