@@ -89,9 +89,15 @@ def get_cat_by_id(cat_id):
     
 #     return 
 
-@app.route("/get-new-cats")
+@app.route("/get-new-cats", methods=["GET"])
 def get_new_cats():
+    admin_token = request.headers.get('Token')
+
+    if admin_token != ADMIN_TOKEN:
+        return {"Acces denied"}
+
     cats = NewCatsApplications.query.all()
+    
     return {"new_cats": [
         {"id": cat.id,
          "owner_name": cat.owner_name,
@@ -177,8 +183,8 @@ def take_cat():
         db.session.rollback()
         return jsonify({'error': str(e)}), 500
 
-@app.route("/get-new-cats-applications", methods=["GET"])
-def get_new_cats_applications():
+@app.route("/get-take-cats-applications", methods=["GET"])
+def get_take_cats_applications():
     admin_token = request.headers.get('Token')
 
     if admin_token != ADMIN_TOKEN:
