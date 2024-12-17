@@ -2,6 +2,9 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from config import Config
 from flask_sqlalchemy import SQLAlchemy
+import os
+
+ADMIN_TOKEN = os.environ.get("ADMIN_TOKEN")
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -173,6 +176,23 @@ def take_cat():
     except Exception as e:
         db.session.rollback()
         return jsonify({'error': str(e)}), 500
+
+@app.route("/get-new-cats-applications", methods=["GET"])
+def get_new_cats_applications():
+    admin_token = request.headers.get('Token')
+
+    if admin_token != ADMIN_TOKEN:
+        return {"Acces denied"}
+    
+    applications = TakeCatApplication.query.all()
+    
+    return {"take-cats-applications": [
+        {"id": application.id,
+         "full_name": application.full_name,
+         "phone_number": application.phone_number,
+         "when_pick_up": application.when_pick_up
+        }
+    for application in applications]}
 
 # curl -X POST https://lyokhinhouse-api.up.railway.app/submit-take-cat \
 # -H "Content-Type: application/json" \
