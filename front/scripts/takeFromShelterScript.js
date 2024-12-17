@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 async function fetchCats() {
     try {
-        const response = await fetch('https://lyokhinhouse-api.up.railway.app/get-cats-in-shelter', {
+        const response = fetch('https://lyokhinhouse-api.up.railway.app/get-cats-in-shelter', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -29,7 +29,7 @@ async function fetchCats() {
             throw new Error('Сеть ответила с ошибкой: ' + response.status);
         }
 
-        const data = await response.json();
+        const data = response.json();
         console.log('Список котов:', data);
 
         // Здесь вы можете обработать полученные данные и отобразить их на странице
