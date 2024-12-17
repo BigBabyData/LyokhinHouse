@@ -160,7 +160,7 @@ def index():
     return jsonify({"status": "LyokhinHouse API is now running!"}), 200
 
 
-@app.route("/get_cats_in_shelter", methods=["GET"])
+@app.route("/get-cats-in-shelter", methods=["GET"])
 def get_cats():
     """
     Получить список всех котов в приюте.
@@ -169,7 +169,7 @@ def get_cats():
     return jsonify({"cats_in_shelter": [cat.to_dict() for cat in cats]}), 200
 
 
-@app.route("/get_cat_in_shelter/<int:cat_id>", methods=["GET"])
+@app.route("/get-cat-in-shelter/<int:cat_id>", methods=["GET"])
 def get_cat_by_id(cat_id: int):
     """
     Получить информацию о конкретном коте по его ID.
@@ -180,7 +180,7 @@ def get_cat_by_id(cat_id: int):
     return jsonify(cat.to_dict()), 200
 
 
-@app.route("/get_new_cats_applications", methods=["GET"])
+@app.route("/get-new-cats-applications", methods=["GET"])
 @admin_required
 def get_new_cats_applications():
     """
@@ -190,7 +190,7 @@ def get_new_cats_applications():
     return jsonify({"new_cats": [cat.to_dict() for cat in cats]}), 200
 
 
-@app.route("/submit_application", methods=["POST"])
+@app.route("/submit-application", methods=["POST"])
 def submit_application():
     """
     Отправить заявку на добавление нового кота.
@@ -222,7 +222,7 @@ def submit_application():
     }), 201
 
 
-@app.route("/submit_take_cat", methods=["POST"])
+@app.route("/submit-take-cat", methods=["POST"])
 def take_cat():
     """
     Отправить заявку на забор кота из приюта.
@@ -248,7 +248,7 @@ def take_cat():
     }), 201
 
 
-@app.route("/get_take_cats_applications", methods=["GET"])
+@app.route("/get-take-cats-applications", methods=["GET"])
 @admin_required
 def get_take_cats_applications():
     """
@@ -258,7 +258,7 @@ def get_take_cats_applications():
     return jsonify({"take_cats_applications": [app.to_dict() for app in applications]}), 200
 
 
-@app.route("/delete_new_cat_application/<int:app_id>", methods=["DELETE"])
+@app.route("/delete-new-cat-application/<int:app_id>", methods=["DELETE"])
 @admin_required
 def delete_new_cat(app_id: int):
     """
@@ -275,7 +275,7 @@ def delete_new_cat(app_id: int):
     return jsonify({"message": "Application deleted successfully"}), 200
 
 
-@app.route("/delete_take_cat_application/<int:app_id>", methods=["DELETE"])
+@app.route("/delete-take-cat-application/<int:app_id>", methods=["DELETE"])
 @admin_required
 def delete_take_cat(app_id: int):
     """
