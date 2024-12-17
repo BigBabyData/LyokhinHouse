@@ -1,8 +1,9 @@
+import os
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
-import os
 from config import Config
+from waitress import serve
 
 ADMIN_TOKEN = os.environ.get("ADMIN_TOKEN")
 
@@ -15,6 +16,7 @@ CORS(app)
 # Модель для котов в приюте
 class CatsInShelter(db.Model):
     __tablename__ = "cats_in_shelter"
+
     id = db.Column(db.Integer, primary_key=True)
     cat_name = db.Column(db.String, nullable=True)
     cat_age = db.Column(db.Integer, nullable=True)
@@ -23,10 +25,22 @@ class CatsInShelter(db.Model):
     time_at_shelter = db.Column(db.Integer, nullable=True)
     arrival_date = db.Column(db.Date, nullable=True)
 
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "cat_name": self.cat_name,
+            "cat_age": self.cat_age,
+            "description": self.description,
+            "image_url": self.image_url,
+            "time_at_shelter": self.time_at_shelter,
+            "arrival_date": self.arrival_date
+        }
+
 
 # Модель для новых заявок
 class NewCatsApplications(db.Model):
     __tablename__ = "new_cats_applications"
+
     id = db.Column(db.Integer, primary_key=True)
     owner_name = db.Column(db.String, nullable=True)
     phone_number = db.Column(db.String, nullable=True)
@@ -37,171 +51,126 @@ class NewCatsApplications(db.Model):
     gender = db.Column(db.String, nullable=True)
     cat_name = db.Column(db.String, nullable=True)
 
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "owner_name": self.owner_name,
+            "phone_number": self.phone_number,
+            "cat_type": self.cat_type,
+            "where_found": self.where_found,
+            "reason_to_give_to_shelter": self.reason_to_give_to_shelter,
+            "breed": self.breed,
+            "gender": self.gender,
+            "cat_name": self.cat_name
+        }
 
-# Модель заявок на забрать кота
+
+# Модель для заявок на забор кота
 class TakeCatApplication(db.Model):
     __tablename__ = "take_cat_applications"
+
     id = db.Column(db.Integer, primary_key=True)
     full_name = db.Column(db.String, nullable=True)
     phone_number = db.Column(db.String, nullable=True)
     when_pick_up = db.Column(db.String, nullable=True)
 
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "full_name": self.full_name,
+            "phone_number": self.phone_number,
+            "when_pick_up": self.when_pick_up
+        }
 
-@app.route('/')
+
+@app.route("/")
 def index():
-    return {"status": "LyokhinHouse API is now running!"}
+    return {"status": "LyokhinHouse API is now running!"}, 200
 
 
-@app.route("/get-cats-in-shelter")
+@app.route("/get-cats-in-shelter", methods=["GET"])
 def get_cats():
     cats = CatsInShelter.query.all()
-    return {
-        "cats_in_shelter": [
-            {
-                "id": cat.id,
-                "cat_name": cat.cat_name,
-                "cat_age": cat.cat_age,
-                "description": cat.description,
-                "image_url": cat.image_url,
-                "time_at_shelter": cat.time_at_shelter,
-                "arrival_date": cat.arrival_date,
-            }
-            for cat in cats
-        ]
-    }
+    return {"cats_in_shelter": [cat.to_dict() for cat in cats]}, 200
 
 
 @app.route("/get-cat-in-shelter/<int:cat_id>", methods=["GET"])
 def get_cat_by_id(cat_id):
     cat = CatsInShelter.query.get(cat_id)
-
     if not cat:
-        return jsonify({'error': 'Cat not found'}), 404
-
-    return {
-        "id": cat.id,
-        "cat_name": cat.cat_name,
-        "cat_age": cat.cat_age,
-        "description": cat.description,
-        "image_url": cat.image_url,
-        "time_at_shelter": cat.time_at_shelter,
-        "arrival_date": cat.arrival_date,
-    }
+        return jsonify({"error": "Cat not found"}), 404
+    return cat.to_dict(), 200
 
 
 @app.route("/get-new-cats-applications", methods=["GET"])
 def get_new_cats_applications():
-    admin_token = request.headers.get('Token')
-
+    admin_token = request.headers.get("Token")
     if admin_token != ADMIN_TOKEN:
-        return {"Answer": "Acces denied"}
+        return jsonify({"error": "Access denied"}), 403
 
     cats = NewCatsApplications.query.all()
-
-    return {
-        "new_cats": [
-            {
-                "id": cat.id,
-                "owner_name": cat.owner_name,
-                "phone_number": cat.phone_number,
-                "cat_type": cat.cat_type,
-                "where_found": cat.where_found,
-                "reason_to_give_to_shelter": cat.reason_to_give_to_shelter,
-                "breed": cat.breed,
-                "gender": cat.gender,
-                "cat_name": cat.cat_name,
-            }
-            for cat in cats
-        ]
-    }
+    return {"new_cats": [cat.to_dict() for cat in cats]}, 200
 
 
 @app.route("/submit-application", methods=["POST"])
 def submit_application():
-    data = request.get_json()
-
-    owner_name = data.get("owner_name")
-    phone_number = data.get("phone_number")
-    cat_type = data.get("cat_type")
-    where_found = data.get("where_found")
-    reason_to_give_to_shelter = data.get("reason_to_give_to_shelter")
-    breed = data.get("breed")
-    gender = data.get("gender")
-    cat_name = data.get("cat_name")
+    data = request.get_json() or {}
 
     new_cat_application = NewCatsApplications(
-        owner_name=owner_name,
-        phone_number=phone_number,
-        cat_type=cat_type,
-        where_found=where_found,
-        reason_to_give_to_shelter=reason_to_give_to_shelter,
-        breed=breed,
-        gender=gender,
-        cat_name=cat_name,
+        owner_name=data.get("owner_name"),
+        phone_number=data.get("phone_number"),
+        cat_type=data.get("cat_type"),
+        where_found=data.get("where_found"),
+        reason_to_give_to_shelter=data.get("reason_to_give_to_shelter"),
+        breed=data.get("breed"),
+        gender=data.get("gender"),
+        cat_name=data.get("cat_name"),
     )
 
     try:
         db.session.add(new_cat_application)
         db.session.commit()
-        return jsonify({'message': 'Application added successfully!', 'id': new_cat_application.id}), 201
+        return jsonify({"message": "Application added successfully!", "id": new_cat_application.id}), 201
     except Exception as e:
         db.session.rollback()
-        return jsonify({'error': str(e)}), 500
+        return jsonify({"error": str(e)}), 500
 
 
 @app.route("/submit-take-cat", methods=["POST"])
 def take_cat():
-    data = request.get_json()
-
-    cat_id = data.get("id")
-    full_name = data.get("full_name")
-    phone_number = data.get("phone_number")
-    when_pick_up = data.get("when_pick_up")
+    data = request.get_json() or {}
 
     take_cat_application = TakeCatApplication(
-        id=cat_id,
-        full_name=full_name,
-        phone_number=phone_number,
-        when_pick_up=when_pick_up
+        id=data.get("id"),
+        full_name=data.get("full_name"),
+        phone_number=data.get("phone_number"),
+        when_pick_up=data.get("when_pick_up")
     )
 
     try:
         db.session.add(take_cat_application)
         db.session.commit()
-        return jsonify({'message': 'Application added successfully!', 'id': take_cat_application.id}), 201
+        return jsonify({"message": "Application added successfully!", "id": take_cat_application.id}), 201
     except Exception as e:
         db.session.rollback()
-        return jsonify({'error': str(e)}), 500
+        return jsonify({"error": str(e)}), 500
 
 
 @app.route("/get-take-cats-applications", methods=["GET"])
 def get_take_cats_applications():
-    admin_token = request.headers.get('Token')
-
+    admin_token = request.headers.get("Token")
     if admin_token != ADMIN_TOKEN:
-        return {"Answer": "Acces denied"}
+        return jsonify({"error": "Access denied"}), 403
 
     applications = TakeCatApplication.query.all()
-
-    return {
-        "take-cats-applications": [
-            {
-                "id": application.id,
-                "full_name": application.full_name,
-                "phone_number": application.phone_number,
-                "when_pick_up": application.when_pick_up,
-            }
-            for application in applications
-        ]
-    }
+    return {"take-cats-applications": [app.to_dict() for app in applications]}, 200
 
 
 @app.route("/delete_new_cat_application/<int:id>", methods=["DELETE"])
 def delete_new_cat(id):
-    admin_token = request.headers.get('Token')
-
+    admin_token = request.headers.get("Token")
     if admin_token != ADMIN_TOKEN:
-        return {"Answer": "Access denied"}, 403
+        return jsonify({"error": "Access denied"}), 403
 
     cat_application = NewCatsApplications.query.get(id)
     if cat_application is None:
@@ -218,10 +187,9 @@ def delete_new_cat(id):
 
 @app.route("/delete_take_cat_application/<int:id>", methods=["DELETE"])
 def delete_take_cat(id):
-    admin_token = request.headers.get('Token')
-
+    admin_token = request.headers.get("Token")
     if admin_token != ADMIN_TOKEN:
-        return {"Answer": "Access denied"}, 403
+        return jsonify({"error": "Access denied"}), 403
 
     application = TakeCatApplication.query.get(id)
     if application is None:
@@ -236,6 +204,5 @@ def delete_take_cat(id):
         return jsonify({"error": str(e)}), 500
 
 
-if __name__ == '__main__':
-    from waitress import serve
+if __name__ == "__main__":
     serve(app, host="0.0.0.0", port=5000)
