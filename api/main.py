@@ -89,8 +89,8 @@ def get_cat_by_id(cat_id):
     
 #     return 
 
-@app.route("/get-new-cats", methods=["GET"])
-def get_new_cats():
+@app.route("/get-new-cats-applications", methods=["GET"])
+def get_new_cats_applications():
     admin_token = request.headers.get('Token')
 
     if admin_token != ADMIN_TOKEN:
@@ -199,6 +199,31 @@ def get_take_cats_applications():
          "when_pick_up": application.when_pick_up
         }
     for application in applications]}
+
+# @app.route("/delete_new_cat_application/<int:id>", methods=["DELETE"])
+# def delete_new_cat():
+#     admin_token = request.headers.get('Token')
+
+#     if admin_token != ADMIN_TOKEN:
+#         return {"Answer": "Acces denied"}
+@app.route("/delete_new_cat_application/<int:id>", methods=["DELETE"])
+def delete_new_cat(id):
+    admin_token = request.headers.get('Token')
+    
+    if admin_token != ADMIN_TOKEN:
+        return {"Answer": "Access denied"}, 403
+    
+    cat_application = NewCatsApplications.query.get(id)
+    if cat_application is None:
+        return jsonify({"error": "Application not found"}), 404
+
+    try:
+        db.session.delete(cat_application)
+        db.session.commit()
+        return jsonify({"message": "Application deleted successfully"}), 200
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"error": str(e)}), 500
 
 # curl -X POST https://lyokhinhouse-api.up.railway.app/submit-take-cat \
 # -H "Content-Type: application/json" \
