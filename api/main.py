@@ -12,7 +12,9 @@ from functools import wraps
 app = Flask(__name__)
 app.config.from_object(Config)
 db = SQLAlchemy(app)
-CORS(app)
+CORS(app, resources={
+    r"/*": {"origins": "https://lyokhinhouse.up.railway.app"}
+})
 
 # Получение токена администратора из переменных окружения
 ADMIN_TOKEN = os.environ.get("ADMIN_TOKEN")
