@@ -42,47 +42,11 @@ async function fetchCats() {
 
 // КАРТОЧКИ НА СТРАНИЦЕ "ВЗЯТЬ ИЗ ПРИЮТА"
 
-const cats = [
-    { id: 0, name: 'Лёха', age: '3 мес', description: 'Красив, молод и очень хочет домой.', img: 'img/image3.jpg', url: 'cat-pages/cat1.html', gallery: ["../img/image2.jpg", "../img/image1mobile.jpg", "../img/image2.jpg"]},
-    { id: 1, name: 'Вася', age: '5 мес', description: 'Красив, молод и очень хочет домой.', img: 'img/image1mobile.jpg', url: 'cat-pages/cat1.html', gallery: ["../img/image1mobile.jpg", "../img/image2.jpg", "../img/image2.jpg"] },
-    { id: 2, name: 'Саша', age: '7 мес', description: 'Красив, молод и очень хочет домой.', img: 'img/image3.jpg', url: 'cat-pages/cat1.html' },
-    { name: 'Лёха', age: '3 мес', description: 'Красив, молод и очень хочет домой.', img: 'img/image3.jpg', url: 'cat-pages/cat1.html'  },
-    { name: 'Лёха', age: '3 мес', description: 'Красив, молод и очень хочет домой.', img: 'img/image3.jpg', url: 'cat-pages/cat1.html'  },
-    { name: 'Лёха', age: '3 мес', description: 'Красив, молод и очень хочет домой.', img: 'img/image3.jpg', url: 'cat-pages/cat1.html'  },
-    { name: 'Лёха', age: '3 мес', description: 'Красив, молод и очень хочет домой.', img: 'img/image3.jpg' },
-    { name: 'Лёха', age: '3 мес', description: 'Красив, молод и очень хочет домой.', img: 'img/image3.jpg' },
-    { name: 'Лёха', age: '3 мес', description: 'Красив, молод и очень хочет домой.', img: 'img/image3.jpg' },
-    { name: 'Лёха', age: '3 мес', description: 'Красив, молод и очень хочет домой.', img: 'img/image3.jpg' },
-    { name: 'Лёха', age: '3 мес', description: 'Красив, молод и очень хочет домой.', img: 'img/image3.jpg' },
-    { name: 'Лёха', age: '3 мес', description: 'Красив, молод и очень хочет домой.', img: 'img/image3.jpg' },
-    { name: 'Лёха', age: '3 мес', description: 'Красив, молод и очень хочет домой.', img: 'img/image3.jpg' },
-    { name: 'Лёха', age: '3 мес', description: 'Красив, молод и очень хочет домой.', img: 'img/image3.jpg' },
-    { name: 'Лёха', age: '3 мес', description: 'Красив, молод и очень хочет домой.', img: 'img/image3.jpg' },
-    { name: 'Лёха', age: '3 мес', description: 'Красив, молод и очень хочет домой.', img: 'img/image3.jpg' },
-    { name: 'Лёха', age: '3 мес', description: 'Красив, молод и очень хочет домой.', img: 'img/image3.jpg' },
-    { name: 'Лёха', age: '3 мес', description: 'Красив, молод и очень хочет домой.', img: 'img/image3.jpg' },
-    { name: 'Лёха', age: '3 мес', description: 'Красив, молод и очень хочет домой.', img: 'img/image3.jpg' },
-    { name: 'Лёха', age: '3 мес', description: 'Красив, молод и очень хочет домой.', img: 'img/image3.jpg' },
-    { name: 'Лёха', age: '3 мес', description: 'Красив, молод и очень хочет домой.', img: 'img/image3.jpg' },
-    { name: 'Лёха', age: '3 мес', description: 'Красив, молод и очень хочет домой.', img: 'img/image3.jpg' },
-    { name: 'Лёха', age: '3 мес', description: 'Красив, молод и очень хочет домой.', img: 'img/image3.jpg' },
-    { name: 'Лёха', age: '3 мес', description: 'Красив, молод и очень хочет домой.', img: 'img/image3.jpg' },
-    { name: 'Лёха', age: '3 мес', description: 'Красив, молод и очень хочет домой.', img: 'img/image3.jpg' },
-    { name: 'Лёха', age: '3 мес', description: 'Красив, молод и очень хочет домой.', img: 'img/image3.jpg' },
-    { name: 'Лёха', age: '3 мес', description: 'Красив, молод и очень хочет домой.', img: 'img/image3.jpg' },
-    { name: 'Лёха', age: '3 мес', description: 'Красив, молод и очень хочет домой.', img: 'img/image3.jpg' },
-    { name: 'Лёха', age: '3 мес', description: 'Красив, молод и очень хочет домой.', img: 'img/image3.jpg' },
-    { name: 'Лёха', age: '3 мес', description: 'Красив, молод и очень хочет домой.', img: 'img/image3.jpg' },
-    { name: 'Лёха', age: '3 мес', description: 'Красив, молод и очень хочет домой.', img: 'img/image3.jpg' },
-    { name: 'Лёха', age: '3 мес', description: 'Красив, молод и очень хочет домой.', img: 'img/image3.jpg' },
-    { name: 'Лёха', age: '3 мес', description: 'Красив, молод и очень хочет домой.', img: 'img/image3.jpg' },
-    { name: 'Лёха', age: '3 мес', description: 'Красив, молод и очень хочет домой.', img: 'img/image3.jpg' },
-    { name: 'Лёха', age: '3 мес', description: 'Красив, молод и очень хочет домой.', img: 'img/image3.jpg' },
-    { name: 'Лёха', age: '3 мес', description: 'Красив, молод и очень хочет домой.', img: 'img/image3.jpg' },
-    { name: 'Лёха', age: '3 мес', description: 'Красив, молод и очень хочет домой.', img: 'img/image3.jpg' },
-    { name: 'Лёха', age: '3 мес', description: 'Красив, молод и очень хочет домой.', img: 'img/image3.jpg' },
-    { name: 'Лёха', age: '3 мес', description: 'Красив, молод и очень хочет домой.', img: 'img/image3.jpg' },
-];
+// const cats = [
+//     { id: 0, name: 'Лёха', age: '3 мес', description: 'Красив, молод и очень хочет домой.', img: 'img/image3.jpg', url: 'cat-pages/cat1.html', gallery: ["../img/image2.jpg", "../img/image1mobile.jpg", "../img/image2.jpg"]},
+// ];
+
+cats = fetchCats()
 
 let currentPage = 0;
 const itemsPerPage = 15; // Количество карточек на странице
