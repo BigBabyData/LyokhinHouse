@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Login</title>
+    <style>
+        body {
+            margin: 0; 
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+            background-color: #f1f1f1;
+
+            /* Центрируем все по вертикали и горизонтали */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .login-container {
+            background-color: #fff;
+            padding: 40px 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+
+            /* Центрируем содержимое внутри контейнера */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .login-container h1 {
+            margin: 0 0 20px 0;
+        }
+
+        form {
+            width: 100%;
+            max-width: 300px; /* Максимальная ширина формы для узких экранов */
+            display: flex;
+            flex-direction: column;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"] {
+            padding: 8px;
+            font-size: 16px;
+        }
+
+        button[type="submit"] {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 4px;
+            background-color: #007BFF;
+            color: #fff;
+            margin-top: 10px;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h1>Вход в админ-панель</h1>
+        <form id="adminLoginForm">
+            <div class="input-group">
+                <label for="token">Токен:</label>
+                <input type="text" id="token" name="token" required>
+            </div>
+            <button type="submit">Войти</button>
+        </form>
+    </div>
+
+    <script>
+    document.getElementById('adminLoginForm').addEventListener('submit', async function(e){
+        e.preventDefault();
+        const tokenValue = document.getElementById('token').value.trim();
+
+        try {
+            // Отправляем GET-запрос на /check-admin-token
+            // с заголовком, в котором указываем введённый токен
+            const response = await fetch("https://lyokhinhouse-api.up.railway.app/check-admin-token", {
+                method: 'GET',
+                headers: {
+                    'Token': tokenValue
+                }
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                // Если токен верный — сохраняем его в sessionStorage
+                sessionStorage.setItem('admin_token', tokenValue);
+
+                alert("Токен верный, переходим в админ-панель!");
+                window.location.href = "admin-panel.html"; 
+            } else {
+                // Если ошибка — сообщаем текст ошибки
+                alert("Ошибка: " + (data.error || "Недопустимый токен!"));
+            }
+        } catch (error) {
+            console.error(error);
+            alert("Ошибка при запросе на /check-admin-token");
+        }
+    });
+    </script>
+</body>
+</html>

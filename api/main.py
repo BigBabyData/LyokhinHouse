@@ -291,6 +291,10 @@ def delete_take_cat(app_id: int):
 
     return jsonify({"message": "Application deleted successfully"}), 200
 
+@app.route("/check-admin-token", methods=["GET"])
+@admin_required
+def check_admin_token():
+    return jsonify({"Succes": "Access allowed"}), 200
 
 # ---------------------------
 # Точка входа
