@@ -157,7 +157,7 @@
       try {
         const response = await fetch("https://lyokhinhouse-api.up.railway.app/get-cats-in-shelter", {
           method: 'GET'
-          // Обратите внимание, здесь не требуется админ-токен, эндпоинт публичный
+          // Публичный эндпоинт, токен не требуется
         });
 
         if (!response.ok) {
@@ -183,9 +183,7 @@
             <td>${cat.id}</td>
             <td>${cat.cat_name || ""}</td>
             <td>${cat.cat_age || ""}</td>
-           [thinking]
-
- <td>${cat.description || ""}</td>
+            <td>${cat.description || ""}</td>
             <td>${cat.image_url || ""}</td>
             <td>${cat.time_at_shelter || ""}</td>
             <td>${cat.arrival_date || ""}</td>
@@ -230,7 +228,6 @@
 
         newCats.forEach(cat => {
           const row = document.createElement('tr');
-
           row.innerHTML = `
             <td>${cat.id}</td>
             <td>${cat.owner_name || ""}</td>
@@ -250,9 +247,7 @@
 
       } catch (error) {
         console.error(error);
-        alert("Ошибка: "[thinking]
-
- + error.message);
+        alert("Ошибка: " + error.message);
       }
     }
 
@@ -326,14 +321,13 @@
         });
 
         const data = await response.json();
-
         if (!response.ok) {
           throw new Error(data.error || "Ошибка при удалении заявки");
         }
 
         alert("Заявка успешно удалена!");
         
-        // Обновляем списки:
+        // Обновляем список соответствующего типа:
         if (type === "new") {
           loadNewCatsApplications();
         } else {
@@ -347,7 +341,7 @@
     }
 
     // -----------------------------------------------------------------------------
-    // Навешиваем слушатель клика на кнопки &laquo;Удалить&raquo; (делегирование событий)
+    // Слежение за кликами на кнопки &laquo;Удалить&raquo; (делегирование событий)
     // -----------------------------------------------------------------------------
     document.addEventListener('click', function(event) {
       if (event.target.classList.contains('btn-delete')) {
@@ -365,9 +359,7 @@
     // При загрузке страницы — подгружаем все нужные данные
     // -----------------------------------------------------------------------------
     window.addEventListener('DOMContentLoaded', () => {
-      loadShelterCats[thinking]
-
-();
+      loadShelterCats();
       loadNewCatsApplications();
       loadTakeCatsApplications();
     });
