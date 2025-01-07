@@ -64,6 +64,28 @@
   <h1>Админ-панель</h1>
   <button class="btn-logout" id="logoutBtn">Выйти</button>
 
+  <!-- Блок котов в приюте -->
+  <section>
+    <h2>Коты в приюте</h2>
+    <table id="shelterCatsTable">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Имя кота</th>
+          <th>Возраст</th>
+          <th>Описание</th>
+          <th>URL изображения</th>
+          <th>Время в приюте (мес.)</th>
+          <th>Дата прибытия</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Строки с данными будут добавлены динамически -->
+      </tbody>
+    </table>
+    <div id="shelterCatsNoData" class="no-data" style="display: none;">Нет котов</div>
+  </section>
+
   <!-- Блок заявок на новых котов -->
   <section>
     <h2>Заявки на новых котов</h2>
@@ -117,7 +139,7 @@
     if (!token) {
       // Если нет токена — перенаправляем на страницу логина
       alert("Нет доступа: требуется ввести токен.");
-      window.location.href = "login.html"; // <-- укажите правильный путь к странице входа
+      window.location.href = "login.html"; 
     }
 
     // ==============
@@ -125,12 +147,60 @@
     // ==============
     document.getElementById('logoutBtn').addEventListener('click', () => {
       sessionStorage.removeItem('admin_token');
-      window.location.href = "login.html"; // <-- укажите правильный путь к странице входа
+      window.location.href = "login.html";
     });
 
-    // ==============
-    // 3) Функция подгрузки заявок на новых котов
-    // ==============
+    // -----------------------------------------------------------------------------
+    // Блок получения котов, находящихся в приюте (cats_in_shelter)
+    // -----------------------------------------------------------------------------
+    async function loadShelterCats() {
+      try {
+        const response = await fetch("https://lyokhinhouse-api.up.railway.app/get-cats-in-shelter", {
+          method: 'GET'
+          // Обратите внимание, здесь не требуется админ-токен, эндпоинт публичный
+        });
+
+        if (!response.ok) {
+          const data = await response.json();
+          throw new Error(data.error || "Ошибка при получении котов из приюта");
+        }
+
+        const data = await response.json();
+        const shelterCats = data.cats_in_shelter; // массив котов
+        const tableBody = document.querySelector("#shelterCatsTable tbody");
+        tableBody.innerHTML = ""; // Очищаем старые данные
+
+        if (!shelterCats || shelterCats.length === 0) {
+          document.getElementById('shelterCatsNoData').style.display = 'block';
+          return;
+        } else {
+          document.getElementById('shelterCatsNoData').style.display = 'none';
+        }
+
+        shelterCats.forEach(cat => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>${cat.id}</td>
+            <td>${cat.cat_name || ""}</td>
+            <td>${cat.cat_age || ""}</td>
+           [thinking]
+
+ <td>${cat.description || ""}</td>
+            <td>${cat.image_url || ""}</td>
+            <td>${cat.time_at_shelter || ""}</td>
+            <td>${cat.arrival_date || ""}</td>
+          `;
+          tableBody.appendChild(row);
+        });
+      } catch (error) {
+        console.error(error);
+        alert("Ошибка: " + error.message);
+      }
+    }
+
+    // -----------------------------------------------------------------------------
+    // Блок заявок на новых котов (new_cats_applications)
+    // -----------------------------------------------------------------------------
     async function loadNewCatsApplications() {
       try {
         const response = await fetch("https://lyokhinhouse-api.up.railway.app/get-new-cats-applications", {
@@ -180,13 +250,15 @@
 
       } catch (error) {
         console.error(error);
-        alert("Ошибка: " + error.message);
+        alert("Ошибка: "[thinking]
+
+ + error.message);
       }
     }
 
-    // ==============
-    // 4) Функция подгрузки заявок на забор котов
-    // ==============
+    // -----------------------------------------------------------------------------
+    // Блок заявок на забор котов (take_cat_applications)
+    // -----------------------------------------------------------------------------
     async function loadTakeCatsApplications() {
       try {
         const response = await fetch("https://lyokhinhouse-api.up.railway.app/get-take-cats-applications", {
@@ -234,9 +306,9 @@
       }
     }
 
-    // ==============
-    // 5) Функция удаления заявки
-    // ==============
+    // -----------------------------------------------------------------------------
+    // Удаление заявок (new или take)
+    // -----------------------------------------------------------------------------
     async function deleteApplication(id, type) {
       try {
         let url = "";
@@ -274,10 +346,9 @@
       }
     }
 
-    // ==============
-    // 6) Навешиваем слушатель клика на кнопки &laquo;Удалить&raquo;
-    //    (через &laquo;делегирование&raquo; событий на весь документ)
-    // ==============
+    // -----------------------------------------------------------------------------
+    // Навешиваем слушатель клика на кнопки &laquo;Удалить&raquo; (делегирование событий)
+    // -----------------------------------------------------------------------------
     document.addEventListener('click', function(event) {
       if (event.target.classList.contains('btn-delete')) {
         const appId = event.target.getAttribute('data-id');
@@ -290,10 +361,13 @@
       }
     });
 
-    // ==============
-    // 7) При загрузке страницы — подгружаем данные
-    // ==============
+    // -----------------------------------------------------------------------------
+    // При загрузке страницы — подгружаем все нужные данные
+    // -----------------------------------------------------------------------------
     window.addEventListener('DOMContentLoaded', () => {
+      loadShelterCats[thinking]
+
+();
       loadNewCatsApplications();
       loadTakeCatsApplications();
     });
