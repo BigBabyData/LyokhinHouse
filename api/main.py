@@ -310,6 +310,38 @@ def delete_cat_from_shelter(cat_id: int):
 
     return jsonify({"message": "Cat deleted successfully!"}), 200
 
+@app.route("/move-new-cat-to-shelter/<int:app_id>", methods=["POST"])
+@admin_required
+def move_new_cat_to_shelter(app_id: int):
+    """
+    Перемещает кота из заявки new_cats_applications -> в cats_in_shelter
+    и удаляет заявку, чтобы она не отображалась снова.
+    """
+    cat_application = NewCatsApplications.query.get(app_id)
+    if not cat_application:
+        return jsonify({"error": "New cat application not found"}), 404
+
+    # Создаём новую запись в cats_in_shelter
+    new_cat = CatsInShelter(
+        cat_name=cat_application.cat_name,
+        cat_age=0,  # или берём из заявки, если там есть поле
+        description=f"Перемещен из заявки, владелец: {cat_application.owner_name}",
+        image_url="",  # или тоже берём из заявки
+        time_at_shelter=0,  # начинаем с 0
+        arrival_date=None,  # или datetime.date.today()
+    )
+
+    success, error = safe_commit(new_cat)
+    if not success:
+        return jsonify({"error": error}), 500
+
+    # (Опционально) Удаляем саму заявку, чтобы она не висела
+    success_del, error_del = safe_delete(cat_application)
+    if not success_del:
+        return jsonify({"error": error_del}), 500
+
+    return jsonify({"message": "Cat moved to shelter successfully"}), 200
+
 # ---------------------------
 # Точка входа
 # ---------------------------
