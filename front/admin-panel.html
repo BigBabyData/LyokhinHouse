@@ -22,7 +22,9 @@
       border-collapse: collapse;
       margin-bottom: 20px;
       background-color: #fff;
-    }
+   [thinking]
+
+ }
     table th, table td {
       border: 1px solid #ccc;
       padding: 8px;
@@ -115,9 +117,9 @@
     // ==============
     const token = sessionStorage.getItem('admin_token');
     if (!token) {
-      // Если нет токена — перенаправляем на страницу входа
+      // Если нет токена — перенаправляем на страницу логина
       alert("Нет доступа: требуется ввести токен.");
-      window.location.href = "login.html"; // <-- укажите свою страницу входа
+      window.location.href = "login.html"; // <-- укажите правильный путь к странице входа
     }
 
     // ==============
@@ -125,7 +127,7 @@
     // ==============
     document.getElementById('logoutBtn').addEventListener('click', () => {
       sessionStorage.removeItem('admin_token');
-      window.location.href = "login.html"; // <-- укажите свою страницу входа
+      window.location.href = "login.html"; // <-- укажите правильный путь к странице входа
     });
 
     // ==============
@@ -151,9 +153,7 @@
         const tableBody = document.querySelector("#newCatsTable tbody");
         tableBody.innerHTML = ""; // Очищаем старые данные
 
-        if (!newCats ||[thinking]
-
- newCats.length === 0) {
+        if (!newCats || newCats.length === 0) {
           document.getElementById('newCatsNoData').style.display = 'block';
           return;
         } else {
@@ -192,7 +192,9 @@
     async function loadTakeCatsApplications() {
       try {
         const response = await fetch("https://lyokhinhouse-api.up.railway.app/get-take-cats-applications", {
-          method: 'GET',
+          method: 'GET[thinking]
+
+',
           headers: {
             'Token': token
           }
