@@ -12,9 +12,7 @@ from functools import wraps
 app = Flask(__name__)
 app.config.from_object(Config)
 db = SQLAlchemy(app)
-CORS(app, resources={
-    r"/*": {"origins": "https://lyokhinhouse.up.railway.app"}
-})
+CORS(app, resources={r"/*": {"origins": "https://lyokhinhouse.up.railway.app", "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"]}})
 
 # Получение токена администратора из переменных окружения
 ADMIN_TOKEN = os.environ.get("ADMIN_TOKEN")
@@ -295,6 +293,22 @@ def delete_take_cat(app_id: int):
 @admin_required
 def check_admin_token():
     return jsonify({"Succes": "Access allowed"}), 200
+
+@app.route("/delete-cat-from-shelter/<int:cat_id>", methods=["DELETE"])
+@admin_required
+def delete_cat_from_shelter(cat_id: int):
+    """
+    Удаляет кота из приюта по ID (требует админ-токен).
+    """
+    cat = CatsInShelter.query.get(cat_id)
+    if not cat:
+        return jsonify({"error": "Cat not found"}), 404
+
+    success, error = safe_delete(cat)
+    if not success:
+        return jsonify({"error": error}), 500
+
+    return jsonify({"message": "Cat deleted successfully!"}), 200
 
 # ---------------------------
 # Точка входа
