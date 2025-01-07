@@ -8,7 +8,9 @@
       font-family: Arial, sans-serif;
       margin: 20px;
       padding: 0;
-      background-color: #f9f9f9;
+      background[thinking]
+
+-color: #f9f9f9;
       box-sizing: border-box;
     }
     h1 {
@@ -77,6 +79,7 @@
           <th>URL изображения</th>
           <th>Время в приюте (мес.)</th>
           <th>Дата прибытия</th>
+          <th>Действия</th> <!-- ДОБАВЛЕНА новая колонка -->
         </tr>
       </thead>
       <tbody>
@@ -157,6 +160,8 @@
       try {
         const response = await fetch("https://lyokhinhouse-api.up.railway.app/get-cats-in-shelter", {
           method: 'GET'
+[thinking]
+
           // Публичный эндпоинт, токен не требуется
         });
 
@@ -187,6 +192,10 @@
             <td>${cat.image_url || ""}</td>
             <td>${cat.time_at_shelter || ""}</td>
             <td>${cat.arrival_date || ""}</td>
+            <td>
+              <!-- ДОБАВЛЕНА кнопка Удалить -->
+              <button class="btn-delete" data-id="${cat.id}" data-type="shelter">Удалить</button>
+            </td>
           `;
           tableBody.appendChild(row);
         });
@@ -302,15 +311,19 @@
     }
 
     // -----------------------------------------------------------------------------
-    // Удаление заявок (new или take)
+    // Удаление заявок и котов в приюте
     // -----------------------------------------------------------------------------
     async function deleteApplication(id, type) {
       try {
         let url = "";
+        // Расширяем логику под котов в приюте
         if (type === "new") {
           url = `https://lyokhinhouse-api.up.railway.app/delete-new-cat-application/${id}`;
         } else if (type === "take") {
           url = `https://lyokhinhouse-api.up.railway.app/delete-take-cat-application/${id}`;
+        } else if (type === "shelter") {
+          // Пример эндпоинта для удаления кота из приюта:
+          url = `https://lyokhinhouse-api.up.railway.app/delete-cat-from-shelter/${id}`;
         }
 
         const response = await fetch(url, {
@@ -322,16 +335,18 @@
 
         const data = await response.json();
         if (!response.ok) {
-          throw new Error(data.error || "Ошибка при удалении заявки");
+          throw new Error(data.error || "Ошибка при удалении");
         }
 
-        alert("Заявка успешно удалена!");
+        alert("Успешно удалено!");
         
         // Обновляем список соответствующего типа:
         if (type === "new") {
           loadNewCatsApplications();
-        } else {
+        } else if (type === "take") {
           loadTakeCatsApplications();
+        } else if (type === "shelter") {
+          loadShelterCats();
         }
 
       } catch (error) {
@@ -348,7 +363,7 @@
         const appId = event.target.getAttribute('data-id');
         const appType = event.target.getAttribute('data-type');
         if (appId && appType) {
-          if (confirm("Удалить заявку?")) {
+          if (confirm("Удалить?")) {
             deleteApplication(appId, appType);
           }
         }
