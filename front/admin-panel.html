@@ -49,9 +49,23 @@
       cursor: pointer;
       font-size: 14px;
       border-radius: 4px;
+      margin-right: 8px;
     }
     .btn-delete:hover {
       background-color: #cc0000;
+    }
+    /* Кнопка для перемещения кота */
+    .btn-move {
+      background-color: #28a745;
+      color: #fff;
+      border: none;
+      padding: 5px 10px;
+      cursor: pointer;
+      font-size: 14px;
+      border-radius: 4px;
+    }
+    .btn-move:hover {
+      background-color: #218838;
     }
     .no-data {
       font-style: italic;
@@ -143,6 +157,10 @@
       window.location.href = "login.html";
     });
 
+    // -----------------------------
+    //  ЗАГРУЗКА ДАННЫХ
+    // -----------------------------
+
     // Загрузка котов в приюте
     async function loadShelterCats() {
       try {
@@ -220,12 +238,13 @@
             <td>${cat.phone_number || ""}</td>
             <td>${cat.cat_type || ""}</td>
             <td>${cat.where_found || ""}</td>
-            <td>${cat.reason_to_give_to_shelter || ""}</td>
+            <td>${cat.reason_to_give || ""}</td>
             <td>${cat.breed || ""}</td>
             <td>${cat.gender || ""}</td>
             <td>${cat.cat_name || ""}</td>
             <td>
               <button class="btn-delete" data-id="${cat.id}" data-type="new">Удалить</button>
+              <button class="btn-move" data-id="${cat.id}" data-type="move">Переместить</button>
             </td>
           `;
           tableBody.appendChild(row);
@@ -280,7 +299,9 @@
       }
     }
 
-    // Удаление заявок / котов
+    // -----------------------------
+    //  УДАЛЕНИЕ ДАННЫХ
+    // -----------------------------
     async function deleteApplication(id, type) {
       try {
         let url = "";
@@ -318,8 +339,41 @@
       }
     }
 
-    // Обработка клика по кнопкам &laquo;Удалить&raquo;
+    // -----------------------------
+    //  ПЕРЕМЕЩЕНИЕ КОТА ИЗ ЗАЯВКИ В ПРИЮТ
+    // -----------------------------
+    async function moveNewCatToShelter(appId) {
+      try {
+        const url = `https://lyokhinhouse-api.up.railway.app/move-new-cat-to-shelter/${appId}`;
+        const response = await fetch(url, {
+          method: 'POST',
+          headers: {
+            'Token': token
+          }
+        });
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.error || "Ошибка при перемещении кота");
+        }
+
+        alert("Кот успешно перемещён в приют!");
+        // Перезагружаем таблицу заявок, чтобы убрать перемещённого кота
+        loadNewCatsApplications();
+        // По желанию обновляем таблицу "Коты в приюте"
+        loadShelterCats();
+
+      } catch (error) {
+        console.error(error);
+        alert("Ошибка: " + error.message);
+      }
+    }
+
+    // -----------------------------
+    //  ОБРАБОТЧИК КЛИКОВ ПО КНОПКАМ
+    // -----------------------------
     document.addEventListener('click', function(event) {
+      // Если нажата кнопка "Удалить"
       if (event.target.classList.contains('btn-delete')) {
         const appId = event.target.getAttribute('data-id');
         const appType = event.target.getAttribute('data-type');
@@ -329,9 +383,22 @@
           }
         }
       }
+
+      // Если нажата кнопка "Переместить"
+      if (event.target.classList.contains('btn-move')) {
+        const appId = event.target.getAttribute('data-id');
+        const appType = event.target.getAttribute('data-type');
+        if (appId && appType === 'move') {
+          if (confirm("Переместить кота в приют?")) {
+            moveNewCatToShelter(appId);
+          }
+        }
+      }
     });
 
-    // При загрузке страницы загружаем данные
+    // -----------------------------
+    //  ИНИЦИАЛИЗАЦИЯ ПРИ ЗАГРУЗКЕ
+    // -----------------------------
     window.addEventListener('DOMContentLoaded', () => {
       loadShelterCats();
       loadNewCatsApplications();
