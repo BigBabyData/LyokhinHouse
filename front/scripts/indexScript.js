@@ -62,24 +62,22 @@ async function fetchCatsForIndex() {
 }
 
 // Функция, которая вставляет карточки котов в раздел &laquo;Выбрать питомца&raquo;
-// Пример кода в indexScript.js
-// ...
 function renderCatsOnIndex(catsArray) {
     const cardsContainer = document.querySelector('.adopt .cards'); 
-    cardsContainer.innerHTML = ''; // очищаем контейнер
+    cardsContainer.innerHTML = ''; // на всякий случай очищаем
 
     catsArray.forEach((cat) => {
         // Создаём элемент li
         const card = document.createElement('li');
-        card.className = 'card';  // <-- класс "card", как на странице "Взять из приюта"
+        card.className = 'card';
 
         // Внутренний HTML карточки
         card.innerHTML = `
-            <div class="card-content">   <!-- класс "card-content" -->
+            <div class="card-content">
                 <img 
-                    src="${cat.image_url || 'img/image3.jpg'}"
-                    class="card-image"
-                    width="339"
+                    src="${cat.image_url || 'img/image3.jpg'}" 
+                    class="card-image" 
+                    width="339" 
                     height="262"
                     alt="Кот из приюта">
                 <h3>${cat.cat_name || 'Безымянный кот'}</h3>
@@ -92,12 +90,15 @@ function renderCatsOnIndex(catsArray) {
             </div>
         `;
 
-        // Обработчик клика для перехода на страницу кота
+        // Добавляем обработчик клика, чтобы при нажатии:
+        // 1. Сохранить данные кота в localStorage
+        // 2. Перейти на страницу cat1.html, которая умеет эти данные считать
         card.addEventListener('click', () => {
             localStorage.setItem('selectedCat', JSON.stringify(cat));
             window.location.href = 'cat-pages/cat1.html';
         });
 
+        // Добавляем карточку на страницу
         cardsContainer.appendChild(card);
     });
 }
