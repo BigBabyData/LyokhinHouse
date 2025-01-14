@@ -504,11 +504,11 @@ input[id="name"]{
     color:#BAD731;
 }
 
-.takeFS-list .card-content:hover{
+.card-content:hover{
     outline: 5px solid #BAD731;
 }
 
-.takeFS-list .card-content{
+.card-content{
     padding: 0;
     padding-top:8px ;
 }
