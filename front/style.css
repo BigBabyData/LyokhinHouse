@@ -495,7 +495,7 @@ input[id="name"]{
     margin-right:70px;
 }
 
-.takeFS-list .card-image{
+.card-image{
     border-radius: 20px;
     object-fit: cover;
 }
