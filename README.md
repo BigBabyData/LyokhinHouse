@@ -285,8 +285,52 @@ https://lyokhinhouse-api.up.railway.app
 
 Ниже приведены схемы архитектуры приложения для наглядного понимания взаимодействия компонентов:
 
+### Общая схема:
 ![Схема архитектуры 1](https://github.com/user-attachments/assets/39c540ba-8054-4b0f-894a-5240b40332ab)
-
+### Схема БД:
+```
+                 ┌───────────────────────────────────────────┐              
+                 │                                           │              
+                 │                                           │              
+       ┌─────────▼─────────┐                 ┌───────────────▼─────────────┐
+       │  cats_in_shelter  │                 │    new_cats_applications    │
+       ├───────────────────┤                 ├─────────────────────────────┤
+       │                   │                 │                             │
+┌──────┼► id [PK]          │                 │  id [PK]                    │
+│      │                   │                 │                             │
+│      │  cat_name         │                 │  owner_name                 │
+│      │                   │                 │                             │
+│      │  cat_age          │                 │  phone_number               │
+│      │                   │                 │                             │
+│      │  description      │                 │  cat_type                   │
+│      │                   │                 │                             │
+│      │  image_url        │                 │  where_found                │
+│      │                   │                 │                             │
+│      │  time_at_shelter  │                 │  reason_to_give_to_shelter  │
+│      │                   │                 │                             │
+│      │  arrival_date     │                 │  breed                      │
+│      └───────────────────┘                 │                             │
+│                                            │  gender                     │
+│                                            │                             │
+│                                            │  cat_name                   │
+│                                            └─────────────────────────────┘
+│                                                                           
+│      ┌───────────────────────┐                                            
+│      │ take_cat_applications │                                            
+│      ├───────────────────────┤                                            
+│      │                       │                                            
+│      │  id [PK]              │                                            
+│      │                       │                                            
+│      │  full_name            │                                            
+│      │                       │                                            
+│      │  phone_number         │                                            
+│      │                       │                                            
+│      │  when_pick_up         │                                            
+│      │                       │                                            
+└──────┼► cat_id               │                                            
+       └───────────────────────┘                                            
+```
+### Скриншот с панели управления RailWay:
 ![Схема архитектуры 2](https://github.com/user-attachments/assets/fe655123-3e4d-4948-98aa-986f7f67bfdc)
 
 ----------------------------------------
