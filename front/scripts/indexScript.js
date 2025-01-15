@@ -50,7 +50,7 @@ async function fetchCatsForIndex() {
         const catsFromServer = data.cats_in_shelter;  // массив котов
 
         // Берём первые 10 котов
-        const catsToShow = catsFromServer.slice(0, 10);
+        const catsToShow = catsFromServer.slice(0, 12);
 
         // Отрисовываем их на странице
         renderCatsOnIndex(catsToShow);
